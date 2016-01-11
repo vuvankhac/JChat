@@ -20,6 +20,9 @@
 		3DF30BB11C436E0500EAE12D /* JMessageTypeText.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BB01C436E0500EAE12D /* JMessageTypeText.m */; };
 		3DF30BB51C438E5300EAE12D /* MeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BB41C438E5300EAE12D /* MeTableViewCell.m */; };
 		3DF30BB81C438E5D00EAE12D /* YouTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BB71C438E5D00EAE12D /* YouTableViewCell.m */; };
+		3DF30BBD1C43A6DA00EAE12D /* avatar-none-male-bigger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30BBA1C43A6DA00EAE12D /* avatar-none-male-bigger.png */; };
+		3DF30BBE1C43A6DA00EAE12D /* avatar-none-male-bigger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30BBB1C43A6DA00EAE12D /* avatar-none-male-bigger@2x.png */; };
+		3DF30BBF1C43A6DA00EAE12D /* avatar-none-male-bigger@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30BBC1C43A6DA00EAE12D /* avatar-none-male-bigger@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,9 @@
 		3DF30BB41C438E5300EAE12D /* MeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTableViewCell.m; sourceTree = "<group>"; };
 		3DF30BB61C438E5D00EAE12D /* YouTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTableViewCell.h; sourceTree = "<group>"; };
 		3DF30BB71C438E5D00EAE12D /* YouTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTableViewCell.m; sourceTree = "<group>"; };
+		3DF30BBA1C43A6DA00EAE12D /* avatar-none-male-bigger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-none-male-bigger.png"; sourceTree = "<group>"; };
+		3DF30BBB1C43A6DA00EAE12D /* avatar-none-male-bigger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-none-male-bigger@2x.png"; sourceTree = "<group>"; };
+		3DF30BBC1C43A6DA00EAE12D /* avatar-none-male-bigger@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-none-male-bigger@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,7 @@
 		3DF30BA21C43507F00EAE12D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3DF30BB91C43A6CD00EAE12D /* Items */,
 				3DF30BB21C438E3C00EAE12D /* MessageUI */,
 				3DF30BAE1C436DE100EAE12D /* JMessages */,
 				3DF30BA81C43598800EAE12D /* UITextView+Placeholder */,
@@ -140,6 +147,16 @@
 				3DF30BB71C438E5D00EAE12D /* YouTableViewCell.m */,
 			);
 			path = MessageUI;
+			sourceTree = "<group>";
+		};
+		3DF30BB91C43A6CD00EAE12D /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				3DF30BBA1C43A6DA00EAE12D /* avatar-none-male-bigger.png */,
+				3DF30BBB1C43A6DA00EAE12D /* avatar-none-male-bigger@2x.png */,
+				3DF30BBC1C43A6DA00EAE12D /* avatar-none-male-bigger@3x.png */,
+			);
+			path = Items;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +217,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF30BBF1C43A6DA00EAE12D /* avatar-none-male-bigger@3x.png in Resources */,
+				3DF30BBE1C43A6DA00EAE12D /* avatar-none-male-bigger@2x.png in Resources */,
 				3DF30B951C434DDE00EAE12D /* LaunchScreen.storyboard in Resources */,
 				3DF30BA71C43509F00EAE12D /* JChat.storyboard in Resources */,
 				3DF30B921C434DDE00EAE12D /* Assets.xcassets in Resources */,
+				3DF30BBD1C43A6DA00EAE12D /* avatar-none-male-bigger.png in Resources */,
 				3DF30B8D1C434DDE00EAE12D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

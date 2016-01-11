@@ -55,7 +55,7 @@
     JMessageTypeText *textYou = [[JMessageTypeText alloc] init];
     textYou.senderID = @"khacvv";
     textYou.senderDisplayName = @"Jana";
-    textYou.textMessage = @"Hello";
+    textYou.textMessage = @"Hello, can you speak english. hihihihihihi.";
     
     self.messagesArray = [[NSMutableArray alloc] initWithObjects:textYou, textMe, nil];
     
