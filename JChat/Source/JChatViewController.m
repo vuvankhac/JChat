@@ -8,9 +8,14 @@
 
 #import "JChatViewController.h"
 #import "UITextView+Placeholder.h"
+#import "JMessageTypeText.h"
+#import "MeTableViewCell.h"
+#import "YouTableViewCell.h"
 
 @interface JChatViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) NSMutableArray *messagesArray;
+@property (strong, nonatomic) NSString *senderID;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UITextView *typeAMessageTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accessoryLayoutConstraint;
@@ -26,9 +31,31 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    //Config
+    //Tracking tap
+    UITapGestureRecognizer *tapInScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapInScreen)];
+    [self.view addGestureRecognizer:tapInScreen];
+    
     self.typeAMessageTextView.placeholder = @"Type a message";
     self.typeAMessageTextView.showsVerticalScrollIndicator = NO;
+    
+    //Config me:
+    self.senderID = @"me";
+    
+    JMessageTypeText *textMe = [[JMessageTypeText alloc] init];
+    textMe.senderID = @"me";
+    textMe.senderDisplayName = @"Khắc";
+    textMe.textMessage = @"Hello Jana";
+    
+    JMessageTypeText *textYou = [[JMessageTypeText alloc] init];
+    textYou.senderID = @"khacvv";
+    textYou.senderDisplayName = @"Jana";
+    textYou.textMessage = @"Hello Khắc";
+    
+    self.messagesArray = [[NSMutableArray alloc] initWithObjects:textMe, textMe, textYou, nil];
+    
+    if (self.messagesArray.count > 0) {
+        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 
 #pragma mark - Notification
@@ -47,25 +74,41 @@
     }];
 }
 
+#pragma mark - Tracking tap
+- (void)tapInScreen {
+    [self.typeAMessageTextView resignFirstResponder];
+}
+
 #pragma mark - TabbleViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return self.messagesArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"ChatCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    static NSString *identifierMe = @"MeCell";
+    static NSString *identifierYou = @"YouCell";
+    
+    if ([[(JMessageTypeText *)self.messagesArray[indexPath.row] senderID] isEqualToString:self.senderID]) {
+        MeTableViewCell *cell = (MeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMe];
+        
+        cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
+        
+        return cell;
+    } else {
+        YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou];
+        
+        cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
+        
+        return cell;
     }
-    
-    
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.typeAMessageTextView resignFirstResponder];
+    
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
 }
 
 #pragma mark - TextViewDelegate
