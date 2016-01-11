@@ -9,7 +9,7 @@
 #import "JChatViewController.h"
 #import "UITextView+Placeholder.h"
 
-@interface JChatViewController () <UITextViewDelegate>
+@interface JChatViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UITextView *typeAMessageTextView;
@@ -26,6 +26,23 @@
     self.typeAMessageTextView.showsVerticalScrollIndicator = NO;
 }
 
+#pragma mark - TabbleViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 20;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"ChatCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
+    }
+    
+    
+    return cell;
+}
+
 #pragma mark - TextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView {
     float rawLineNumber = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom) / textView.font.lineHeight;
@@ -35,7 +52,10 @@
     } else {
         self.accessoryLayoutConstraint.constant = 5*16.707031 + 43.292969;
     }
-    [self.view layoutIfNeeded];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
