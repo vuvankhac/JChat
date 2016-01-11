@@ -40,6 +40,8 @@
     self.typeAMessageTextView.placeholder = @"Type a message";
     self.typeAMessageTextView.showsVerticalScrollIndicator = NO;
     self.sendButton.enabled = NO;
+    self.chatTableView.rowHeight = UITableViewAutomaticDimension;
+    self.chatTableView.estimatedRowHeight = 50;
     
     //Config me:
     self.senderID = @"me";
@@ -48,12 +50,12 @@
     JMessageTypeText *textMe = [[JMessageTypeText alloc] init];
     textMe.senderID = self.senderID;
     textMe.senderDisplayName = self.senderDisplayName;
-    textMe.textMessage = @"Hello Jana";
+    textMe.textMessage = @"Hello Jana, welcome to vietnam. I really like you.";
     
     JMessageTypeText *textYou = [[JMessageTypeText alloc] init];
     textYou.senderID = @"khacvv";
     textYou.senderDisplayName = @"Jana";
-    textYou.textMessage = @"Hello Khắc";
+    textYou.textMessage = @"Hello";
     
     self.messagesArray = [[NSMutableArray alloc] initWithObjects:textYou, textMe, nil];
     
