@@ -1,0 +1,327 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3DF30B841C434DDE00EAE12D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B831C434DDE00EAE12D /* main.m */; };
+		3DF30B871C434DDE00EAE12D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B861C434DDE00EAE12D /* AppDelegate.m */; };
+		3DF30B8A1C434DDE00EAE12D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B891C434DDE00EAE12D /* ViewController.m */; };
+		3DF30B8D1C434DDE00EAE12D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30B8B1C434DDE00EAE12D /* Main.storyboard */; };
+		3DF30B901C434DDE00EAE12D /* JChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B8E1C434DDE00EAE12D /* JChat.xcdatamodeld */; };
+		3DF30B921C434DDE00EAE12D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30B911C434DDE00EAE12D /* Assets.xcassets */; };
+		3DF30B951C434DDE00EAE12D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30B931C434DDE00EAE12D /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3DF30B7F1C434DDE00EAE12D /* JChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DF30B831C434DDE00EAE12D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3DF30B851C434DDE00EAE12D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3DF30B861C434DDE00EAE12D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3DF30B881C434DDE00EAE12D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3DF30B891C434DDE00EAE12D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3DF30B8C1C434DDE00EAE12D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3DF30B8F1C434DDE00EAE12D /* JChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JChat.xcdatamodel; sourceTree = "<group>"; };
+		3DF30B911C434DDE00EAE12D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3DF30B941C434DDE00EAE12D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3DF30B961C434DDE00EAE12D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3DF30B7C1C434DDE00EAE12D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3DF30B761C434DDE00EAE12D = {
+			isa = PBXGroup;
+			children = (
+				3DF30B811C434DDE00EAE12D /* JChat */,
+				3DF30B801C434DDE00EAE12D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3DF30B801C434DDE00EAE12D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3DF30B7F1C434DDE00EAE12D /* JChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3DF30B811C434DDE00EAE12D /* JChat */ = {
+			isa = PBXGroup;
+			children = (
+				3DF30B851C434DDE00EAE12D /* AppDelegate.h */,
+				3DF30B861C434DDE00EAE12D /* AppDelegate.m */,
+				3DF30B881C434DDE00EAE12D /* ViewController.h */,
+				3DF30B891C434DDE00EAE12D /* ViewController.m */,
+				3DF30B8B1C434DDE00EAE12D /* Main.storyboard */,
+				3DF30B911C434DDE00EAE12D /* Assets.xcassets */,
+				3DF30B931C434DDE00EAE12D /* LaunchScreen.storyboard */,
+				3DF30B961C434DDE00EAE12D /* Info.plist */,
+				3DF30B8E1C434DDE00EAE12D /* JChat.xcdatamodeld */,
+				3DF30B821C434DDE00EAE12D /* Supporting Files */,
+			);
+			path = JChat;
+			sourceTree = "<group>";
+		};
+		3DF30B821C434DDE00EAE12D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3DF30B831C434DDE00EAE12D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3DF30B7E1C434DDE00EAE12D /* JChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DF30B991C434DDE00EAE12D /* Build configuration list for PBXNativeTarget "JChat" */;
+			buildPhases = (
+				3DF30B7B1C434DDE00EAE12D /* Sources */,
+				3DF30B7C1C434DDE00EAE12D /* Frameworks */,
+				3DF30B7D1C434DDE00EAE12D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JChat;
+			productName = JChat;
+			productReference = 3DF30B7F1C434DDE00EAE12D /* JChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3DF30B771C434DDE00EAE12D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = khacvv;
+				TargetAttributes = {
+					3DF30B7E1C434DDE00EAE12D = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = L2D8T53573;
+					};
+				};
+			};
+			buildConfigurationList = 3DF30B7A1C434DDE00EAE12D /* Build configuration list for PBXProject "JChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3DF30B761C434DDE00EAE12D;
+			productRefGroup = 3DF30B801C434DDE00EAE12D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3DF30B7E1C434DDE00EAE12D /* JChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3DF30B7D1C434DDE00EAE12D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DF30B951C434DDE00EAE12D /* LaunchScreen.storyboard in Resources */,
+				3DF30B921C434DDE00EAE12D /* Assets.xcassets in Resources */,
+				3DF30B8D1C434DDE00EAE12D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3DF30B7B1C434DDE00EAE12D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DF30B901C434DDE00EAE12D /* JChat.xcdatamodeld in Sources */,
+				3DF30B8A1C434DDE00EAE12D /* ViewController.m in Sources */,
+				3DF30B871C434DDE00EAE12D /* AppDelegate.m in Sources */,
+				3DF30B841C434DDE00EAE12D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3DF30B8B1C434DDE00EAE12D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3DF30B8C1C434DDE00EAE12D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3DF30B931C434DDE00EAE12D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3DF30B941C434DDE00EAE12D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3DF30B971C434DDE00EAE12D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		3DF30B981C434DDE00EAE12D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3DF30B9A1C434DDE00EAE12D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = JChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = khacvv.JChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3DF30B9B1C434DDE00EAE12D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = JChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = khacvv.JChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3DF30B7A1C434DDE00EAE12D /* Build configuration list for PBXProject "JChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DF30B971C434DDE00EAE12D /* Debug */,
+				3DF30B981C434DDE00EAE12D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DF30B991C434DDE00EAE12D /* Build configuration list for PBXNativeTarget "JChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DF30B9A1C434DDE00EAE12D /* Debug */,
+				3DF30B9B1C434DDE00EAE12D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3DF30B8E1C434DDE00EAE12D /* JChat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3DF30B8F1C434DDE00EAE12D /* JChat.xcdatamodel */,
+			);
+			currentVersion = 3DF30B8F1C434DDE00EAE12D /* JChat.xcdatamodel */;
+			path = JChat.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 3DF30B771C434DDE00EAE12D /* Project object */;
+}
