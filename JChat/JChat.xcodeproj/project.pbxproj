@@ -14,6 +14,9 @@
 		3DF30B901C434DDE00EAE12D /* JChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B8E1C434DDE00EAE12D /* JChat.xcdatamodeld */; };
 		3DF30B921C434DDE00EAE12D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30B911C434DDE00EAE12D /* Assets.xcassets */; };
 		3DF30B951C434DDE00EAE12D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30B931C434DDE00EAE12D /* LaunchScreen.storyboard */; };
+		3DF30BA51C43508E00EAE12D /* JChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BA41C43508E00EAE12D /* JChatViewController.m */; };
+		3DF30BA71C43509F00EAE12D /* JChat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30BA61C43509F00EAE12D /* JChat.storyboard */; };
+		3DF30BAB1C43598800EAE12D /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BAA1C43598800EAE12D /* UITextView+Placeholder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,11 @@
 		3DF30B911C434DDE00EAE12D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DF30B941C434DDE00EAE12D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DF30B961C434DDE00EAE12D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DF30BA31C43508E00EAE12D /* JChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JChatViewController.h; sourceTree = "<group>"; };
+		3DF30BA41C43508E00EAE12D /* JChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JChatViewController.m; sourceTree = "<group>"; };
+		3DF30BA61C43509F00EAE12D /* JChat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JChat.storyboard; sourceTree = "<group>"; };
+		3DF30BA91C43598800EAE12D /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
+		3DF30BAA1C43598800EAE12D /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +52,7 @@
 		3DF30B761C434DDE00EAE12D = {
 			isa = PBXGroup;
 			children = (
+				3DF30BA21C43507F00EAE12D /* Source */,
 				3DF30B811C434DDE00EAE12D /* JChat */,
 				3DF30B801C434DDE00EAE12D /* Products */,
 			);
@@ -80,6 +89,26 @@
 				3DF30B831C434DDE00EAE12D /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3DF30BA21C43507F00EAE12D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				3DF30BA81C43598800EAE12D /* UITextView+Placeholder */,
+				3DF30BA31C43508E00EAE12D /* JChatViewController.h */,
+				3DF30BA41C43508E00EAE12D /* JChatViewController.m */,
+				3DF30BA61C43509F00EAE12D /* JChat.storyboard */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		3DF30BA81C43598800EAE12D /* UITextView+Placeholder */ = {
+			isa = PBXGroup;
+			children = (
+				3DF30BA91C43598800EAE12D /* UITextView+Placeholder.h */,
+				3DF30BAA1C43598800EAE12D /* UITextView+Placeholder.m */,
+			);
+			path = "UITextView+Placeholder";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DF30B951C434DDE00EAE12D /* LaunchScreen.storyboard in Resources */,
+				3DF30BA71C43509F00EAE12D /* JChat.storyboard in Resources */,
 				3DF30B921C434DDE00EAE12D /* Assets.xcassets in Resources */,
 				3DF30B8D1C434DDE00EAE12D /* Main.storyboard in Resources */,
 			);
@@ -154,6 +184,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DF30B901C434DDE00EAE12D /* JChat.xcdatamodeld in Sources */,
+				3DF30BAB1C43598800EAE12D /* UITextView+Placeholder.m in Sources */,
+				3DF30BA51C43508E00EAE12D /* JChatViewController.m in Sources */,
 				3DF30B8A1C434DDE00EAE12D /* ViewController.m in Sources */,
 				3DF30B871C434DDE00EAE12D /* AppDelegate.m in Sources */,
 				3DF30B841C434DDE00EAE12D /* main.m in Sources */,
@@ -307,6 +339,7 @@
 				3DF30B9B1C434DDE00EAE12D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

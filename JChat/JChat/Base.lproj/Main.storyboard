@@ -16,7 +16,24 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tU1-DY-YVj">
+                                <rect key="frame" x="260" y="285" width="80" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Y5x-7p-Msp"/>
+                                    <constraint firstAttribute="width" constant="80" id="qhG-Ki-z7W"/>
+                                </constraints>
+                                <state key="normal" title="Go Chat"/>
+                                <connections>
+                                    <action selector="goChatAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s44-26-Gob"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tU1-DY-YVj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Wn-gA-ZAu"/>
+                            <constraint firstItem="tU1-DY-YVj" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ZNS-19-Cng"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="O1Y-Nb-DRY"/>
                 </viewController>

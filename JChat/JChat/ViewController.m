@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "JChatViewController.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (IBAction)goChatAction:(id)sender {
+    JChatViewController *chat = [[UIStoryboard storyboardWithName:@"JChat" bundle:nil] instantiateViewControllerWithIdentifier:@"JChat"];
+    [self.navigationController pushViewController:chat animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
