@@ -10,4 +10,10 @@
 
 @implementation JMessageTypeText
 
+- (instancetype)initWithSenderID:(NSString *)senderID displayName:(NSString *)displayName textMessage:(NSString *)textMessage {
+    self.senderID = senderID;
+    self.senderDisplayName = displayName;
+    self.textMessage = textMessage;
+    return self;
+}
 @end

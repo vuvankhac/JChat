@@ -13,4 +13,6 @@
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderDisplayName;
 @property (strong, nonatomic) NSString *textMessage;
+
+- (instancetype)initWithSenderID:(NSString *)senderID displayName:(NSString *)displayName textMessage:(NSString *)textMessage;
 @end

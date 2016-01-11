@@ -16,8 +16,10 @@
 
 @property (strong, nonatomic) NSMutableArray *messagesArray;
 @property (strong, nonatomic) NSString *senderID;
+@property (strong, nonatomic) NSString *senderDisplayName;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UITextView *typeAMessageTextView;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accessoryLayoutConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardControlLayoutConstraint;
 @end
@@ -37,13 +39,15 @@
     
     self.typeAMessageTextView.placeholder = @"Type a message";
     self.typeAMessageTextView.showsVerticalScrollIndicator = NO;
+    self.sendButton.enabled = NO;
     
     //Config me:
     self.senderID = @"me";
+    self.senderDisplayName = @"Vũ Văn Khắc";
     
     JMessageTypeText *textMe = [[JMessageTypeText alloc] init];
-    textMe.senderID = @"me";
-    textMe.senderDisplayName = @"Khắc";
+    textMe.senderID = self.senderID;
+    textMe.senderDisplayName = self.senderDisplayName;
     textMe.textMessage = @"Hello Jana";
     
     JMessageTypeText *textYou = [[JMessageTypeText alloc] init];
@@ -51,7 +55,7 @@
     textYou.senderDisplayName = @"Jana";
     textYou.textMessage = @"Hello Khắc";
     
-    self.messagesArray = [[NSMutableArray alloc] initWithObjects:textMe, textMe, textYou, nil];
+    self.messagesArray = [[NSMutableArray alloc] initWithObjects:textYou, textMe, nil];
     
     if (self.messagesArray.count > 0) {
         [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -113,6 +117,12 @@
 
 #pragma mark - TextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView {
+    if (self.typeAMessageTextView.text.length > 0) {
+        self.sendButton.enabled = YES;
+    } else {
+        self.sendButton.enabled = NO;
+    }
+    
     float rawLineNumber = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom) / textView.font.lineHeight;
     int finalLineNumber = round(rawLineNumber);
     if (finalLineNumber <= 5) {
@@ -124,6 +134,15 @@
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (IBAction)sendAction:(id)sender {
+    JMessageTypeText *sendMessage = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:self.typeAMessageTextView.text];
+    
+    [self.messagesArray addObject:sendMessage];
+    self.typeAMessageTextView.text = @"";
+    [self.chatTableView reloadData];
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
