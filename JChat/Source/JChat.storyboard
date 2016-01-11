@@ -93,6 +93,7 @@
                     <connections>
                         <outlet property="accessoryLayoutConstraint" destination="kvM-1b-FoX" id="CLJ-eR-C2k"/>
                         <outlet property="chatTableView" destination="vwB-5r-TqJ" id="tGp-bW-SAS"/>
+                        <outlet property="keyboardControlLayoutConstraint" destination="Uzn-zG-d5E" id="WNQ-wm-3DN"/>
                         <outlet property="typeAMessageTextView" destination="8kc-uJ-CxU" id="5br-m5-DkP"/>
                     </connections>
                 </viewController>
