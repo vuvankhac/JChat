@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderDisplayName;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
+@property (weak, nonatomic) IBOutlet UIView *inputView;
 @property (weak, nonatomic) IBOutlet UITextView *typeAMessageTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accessoryLayoutConstraint;
@@ -32,6 +33,7 @@
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     //Tracking tap
     UITapGestureRecognizer *tapInScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapInScreen)];
@@ -57,7 +59,15 @@
     textYou.senderDisplayName = @"Jana";
     textYou.textMessage = @"Hello, can you speak english. hihihihihihi.";
     
-    self.messagesArray = [[NSMutableArray alloc] initWithObjects:textYou, textMe, nil];
+    self.messagesArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 100; i++) {
+        NSInteger randomNumber = arc4random()%2;
+        if (randomNumber == 0) {
+            [self.messagesArray addObject:textMe];
+        } else {
+            [self.messagesArray addObject:textYou];
+        }
+    }
     
     if (self.messagesArray.count > 0) {
         [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -80,6 +90,10 @@
     }];
 }
 
+- (void)keyboardWillChangeFrame:(NSNotification *)notification {
+    
+}
+
 #pragma mark - Tracking tap
 - (void)tapInScreen {
     [self.typeAMessageTextView resignFirstResponder];
@@ -99,11 +113,17 @@
         
         cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
         
+        cell.layer.shouldRasterize = YES;
+        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        
         return cell;
     } else {
         YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou];
         
         cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
+        
+        cell.layer.shouldRasterize = YES;
+        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
         return cell;
     }
