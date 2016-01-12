@@ -44,6 +44,7 @@
     self.sendButton.enabled = NO;
     self.chatTableView.rowHeight = UITableViewAutomaticDimension;
     self.chatTableView.estimatedRowHeight = 50;
+//    self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
     //Config me:
     self.senderID = @"me";
@@ -70,7 +71,9 @@
     }
     
     if (self.messagesArray.count > 0) {
-        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.chatTableView beginUpdates];
+        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        [self.chatTableView endUpdates];
     }
 }
 
@@ -163,8 +166,13 @@
     
     [self.messagesArray addObject:sendMessage];
     self.typeAMessageTextView.text = @"";
-    [self.chatTableView reloadData];
-    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    self.sendButton.enabled = NO;
+    
+    [self.chatTableView beginUpdates];
+    [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.chatTableView endUpdates];
+    
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
