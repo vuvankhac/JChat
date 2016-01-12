@@ -69,12 +69,6 @@
             [self.messagesArray addObject:textYou];
         }
     }
-    
-    if (self.messagesArray.count > 0) {
-        [self.chatTableView beginUpdates];
-        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        [self.chatTableView endUpdates];
-    }
 }
 
 #pragma mark - Notification
@@ -164,6 +158,23 @@
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 2;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == ([tableView numberOfSections] - 1)) {
+        [self tableViewWillFinishLoading:tableView];
+    }
+    return [UIView new];
+}
+
+- (void)tableViewWillFinishLoading:(UITableView *)tableView {
+    if (self.messagesArray.count > 0) {
+        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
 }
 
 #pragma mark - TextViewDelegate
