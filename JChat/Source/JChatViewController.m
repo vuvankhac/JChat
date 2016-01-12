@@ -119,6 +119,19 @@
         cell.layer.shouldRasterize = YES;
         cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
+        JMessageTypeText *messages;
+        if (indexPath.row < 1) {
+            messages = [self.messagesArray objectAtIndex:indexPath.row];
+        } else {
+            messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
+        }
+        
+        if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
+            cell.heightOfDateLayoutConstraint.constant = 0;
+        } else {
+            cell.heightOfDateLayoutConstraint.constant = 15;
+        }
+        
         return cell;
     } else {
         YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou];
@@ -127,6 +140,19 @@
         
         cell.layer.shouldRasterize = YES;
         cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        
+        JMessageTypeText *messages;
+        if (indexPath.row < 1) {
+            messages = [self.messagesArray objectAtIndex:indexPath.row];
+        } else {
+            messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
+        }
+        
+        if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
+            cell.heightOfDateLayoutConstraint.constant = 0;
+        } else {
+            cell.heightOfDateLayoutConstraint.constant = 15;
+        }
         
         return cell;
     }
