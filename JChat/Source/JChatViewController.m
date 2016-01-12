@@ -110,9 +110,6 @@
         
         cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
         
-        cell.layer.shouldRasterize = YES;
-        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-        
         JMessageTypeText *messages;
         if (indexPath.row < 1) {
             messages = [self.messagesArray objectAtIndex:indexPath.row];
@@ -125,6 +122,9 @@
         } else {
             cell.heightOfDateLayoutConstraint.constant = 15;
         }
+        
+        cell.layer.shouldRasterize = YES;
+        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
         return cell;
     } else {
@@ -132,9 +132,6 @@
         
         cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
         
-        cell.layer.shouldRasterize = YES;
-        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-        
         JMessageTypeText *messages;
         if (indexPath.row < 1) {
             messages = [self.messagesArray objectAtIndex:indexPath.row];
@@ -148,13 +145,15 @@
             cell.heightOfDateLayoutConstraint.constant = 15;
         }
         
+        cell.avatarImageView.hidden = NO;
         if (indexPath.row < self.messagesArray.count - 1) {
-            if ([[self.messagesArray objectAtIndex:indexPath.row] senderID] != [[self.messagesArray objectAtIndex:indexPath.row + 1] senderID]) {
-                cell.avatarImageView.hidden = NO;
-            } else {
+            if ([[self.messagesArray objectAtIndex:indexPath.row] senderID] == [[self.messagesArray objectAtIndex:indexPath.row + 1] senderID]) {
                 cell.avatarImageView.hidden = YES;
             }
         }
+        
+        cell.layer.shouldRasterize = YES;
+        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
         return cell;
     }
