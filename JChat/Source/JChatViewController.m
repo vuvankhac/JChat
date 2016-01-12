@@ -148,6 +148,14 @@
             cell.heightOfDateLayoutConstraint.constant = 15;
         }
         
+        if (indexPath.row < self.messagesArray.count - 1) {
+            if ([[self.messagesArray objectAtIndex:indexPath.row] senderID] != [[self.messagesArray objectAtIndex:indexPath.row + 1] senderID]) {
+                cell.avatarImageView.hidden = NO;
+            } else {
+                cell.avatarImageView.hidden = YES;
+            }
+        }
+        
         return cell;
     }
 }

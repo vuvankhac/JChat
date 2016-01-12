@@ -193,6 +193,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="avatarImageView" destination="mU7-Za-Sj9" id="Kh8-eH-xAW"/>
                                             <outlet property="contentMessage" destination="Rgm-Nr-18W" id="bRv-Tl-vBt"/>
                                             <outlet property="dateLabel" destination="KKU-sf-qPh" id="gYQ-9E-aCD"/>
                                             <outlet property="heightOfDateLayoutConstraint" destination="8vD-B6-4ru" id="WsA-gm-c9A"/>
