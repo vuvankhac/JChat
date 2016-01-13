@@ -17,9 +17,13 @@
 @property (strong, nonatomic) NSMutableArray *messagesArray;
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderDisplayName;
+@property (strong, nonatomic) UIView *accessoryBackgroundView;
+@property (weak, nonatomic) IBOutlet UIView *backgroundExtendView;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIView *inputView;
 @property (weak, nonatomic) IBOutlet UITextView *typeAMessageTextView;
+@property (weak, nonatomic) IBOutlet UIButton *textOption;
+@property (weak, nonatomic) IBOutlet UIButton *imageOption;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accessoryLayoutConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardControlLayoutConstraint;
@@ -41,6 +45,7 @@
     
     self.typeAMessageTextView.placeholder = @"Type a message";
     self.typeAMessageTextView.showsVerticalScrollIndicator = NO;
+    self.typeAMessageTextView.autocorrectionType = UITextAutocorrectionTypeNo;
     self.sendButton.enabled = NO;
     self.chatTableView.rowHeight = UITableViewAutomaticDimension;
     self.chatTableView.estimatedRowHeight = 50;
@@ -61,7 +66,7 @@
     textYou.textMessage = @"Hello, can you speak english. hihihihihihi.";
     
     self.messagesArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 50; i++) {
         NSInteger randomNumber = arc4random()%2;
         if (randomNumber == 0) {
             [self.messagesArray addObject:textMe];
@@ -94,6 +99,9 @@
 #pragma mark - Tracking tap
 - (void)tapInScreen {
     [self.typeAMessageTextView resignFirstResponder];
+    
+    [self.textOption setSelected:NO];
+    [self.imageOption setSelected:NO];
 }
 
 #pragma mark - TabbleViewDelegate
@@ -106,7 +114,7 @@
     static NSString *identifierYou = @"YouCell";
     
     if ([[(JMessageTypeText *)self.messagesArray[indexPath.row] senderID] isEqualToString:self.senderID]) {
-        MeTableViewCell *cell = (MeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMe];
+        MeTableViewCell *cell = (MeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMe forIndexPath:indexPath];
         
         cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
         
@@ -128,7 +136,7 @@
         
         return cell;
     } else {
-        YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou];
+        YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou forIndexPath:indexPath];
         
         cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
         
@@ -192,12 +200,26 @@
         self.sendButton.enabled = NO;
     }
     
-    float rawLineNumber = (textView.contentSize.height - textView.textContainerInset.top - textView.textContainerInset.bottom) / textView.font.lineHeight;
+    [self accessoryViewDidChange];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [self.textOption setSelected:YES];
+    [self.imageOption setSelected:NO];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self.textOption setSelected:NO];
+}
+
+#pragma mark - Other
+- (void)accessoryViewDidChange {
+    float rawLineNumber = (self.typeAMessageTextView.contentSize.height - self.typeAMessageTextView.textContainerInset.top - self.typeAMessageTextView.textContainerInset.bottom) / self.typeAMessageTextView.font.lineHeight;
     int finalLineNumber = round(rawLineNumber);
     if (finalLineNumber <= 5) {
-        self.accessoryLayoutConstraint.constant = finalLineNumber*16.707031 + 43.292969;
+        self.accessoryLayoutConstraint.constant = finalLineNumber*16.707031 + 58.292969;
     } else {
-        self.accessoryLayoutConstraint.constant = 5*16.707031 + 43.292969;
+        self.accessoryLayoutConstraint.constant = 5*16.707031 + 58.292969;
     }
     
     [UIView animateWithDuration:0.2 animations:^{
@@ -205,6 +227,7 @@
     }];
 }
 
+#pragma mark - Action Methods
 - (IBAction)sendAction:(id)sender {
     JMessageTypeText *sendMessage = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:self.typeAMessageTextView.text];
     
@@ -212,11 +235,27 @@
     self.typeAMessageTextView.text = @"";
     self.sendButton.enabled = NO;
     
+    [self accessoryViewDidChange];
+    
     [self.chatTableView beginUpdates];
     [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [self.chatTableView endUpdates];
     
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+}
+
+- (IBAction)textOptionAction:(id)sender {
+    [self.textOption setSelected:YES];
+    [self.imageOption setSelected:NO];
+    
+    [self.typeAMessageTextView becomeFirstResponder];
+}
+
+- (IBAction)imageOptionAction:(id)sender {
+    [self.textOption setSelected:NO];
+    [self.imageOption setSelected:YES];
+    
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
 - (void)didReceiveMemoryWarning {
