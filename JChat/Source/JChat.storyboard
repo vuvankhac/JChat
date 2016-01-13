@@ -265,6 +265,7 @@
                     <navigationItem key="navigationItem" id="67c-yi-2Fn"/>
                     <connections>
                         <outlet property="accessoryLayoutConstraint" destination="kvM-1b-FoX" id="CLJ-eR-C2k"/>
+                        <outlet property="backgroundExtendView" destination="GLo-SZ-bb8" id="Afe-2h-O8i"/>
                         <outlet property="chatTableView" destination="vwB-5r-TqJ" id="tGp-bW-SAS"/>
                         <outlet property="imageOption" destination="S41-Ui-kTO" id="4eH-2y-baW"/>
                         <outlet property="inputView" destination="1SK-Jf-tco" id="R8c-dr-MxA"/>

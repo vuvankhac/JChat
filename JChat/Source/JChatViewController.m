@@ -11,6 +11,7 @@
 #import "JMessageTypeText.h"
 #import "MeTableViewCell.h"
 #import "YouTableViewCell.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface JChatViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -18,6 +19,8 @@
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderDisplayName;
 @property (strong, nonatomic) UIView *accessoryBackgroundView;
+@property (strong, nonatomic) UIScrollView *extendScrollView;
+@property (strong, nonatomic) NSMutableArray *photos;
 @property (weak, nonatomic) IBOutlet UIView *backgroundExtendView;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIView *inputView;
@@ -49,7 +52,6 @@
     self.sendButton.enabled = NO;
     self.chatTableView.rowHeight = UITableViewAutomaticDimension;
     self.chatTableView.estimatedRowHeight = 50;
-//    self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
     //Config me:
     self.senderID = @"me";
@@ -109,8 +111,9 @@
     
     self.typeAMessageTextView.hidden = NO;
     self.accessoryLayoutConstraint.constant = 75;
+    [self accessoryViewDidChange];
     self.keyboardControlLayoutConstraint.constant = 0;
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
 }
@@ -263,6 +266,7 @@
     
     self.typeAMessageTextView.hidden = NO;
     self.accessoryLayoutConstraint.constant = 75;
+    [self accessoryViewDidChange];
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -270,6 +274,55 @@
 
 - (IBAction)imageOptionAction:(id)sender {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    
+    if (!self.extendScrollView) {
+        self.extendScrollView = [[UIScrollView alloc] initWithFrame:self.backgroundExtendView.bounds];
+        [self.backgroundExtendView addSubview:self.extendScrollView];
+    }
+    
+    if (!self.photos) {
+        NSMutableArray *collector = [[NSMutableArray alloc] initWithCapacity:0];
+        ALAssetsLibrary *al = [self defaultAssetsLibrary];
+        
+        [al enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop) {
+                if (asset) {
+                    [collector addObject:asset];
+                }
+                self.photos = collector;
+            }];
+            
+            for (int i = 0; i < self.photos.count; i++) {
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
+                [imageView setImage:[UIImage imageWithCGImage:[[self.photos[i] defaultRepresentation] fullScreenImage]]];
+                imageView.contentMode = UIViewContentModeScaleAspectFill;
+                imageView.layer.masksToBounds = YES;
+                [self.extendScrollView addSubview:imageView];
+                [self.extendScrollView setContentSize:CGSizeMake(216*(i+1), 216)];
+                
+                UIButton *selectImage = [[UIButton alloc] initWithFrame:imageView.bounds];
+                [imageView addSubview:selectImage];
+            }
+            
+        } failureBlock:^(NSError *error) {
+            NSLog(@"Boom!!!");
+        }
+         ];
+    }
+    
+    if (self.photos) {
+        for (int i = 0; i < self.photos.count; i++) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
+            [imageView setImage:[UIImage imageWithCGImage:[[self.photos[i] defaultRepresentation] fullScreenImage]]];
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.layer.masksToBounds = YES;
+            [self.extendScrollView addSubview:imageView];
+            [self.extendScrollView setContentSize:CGSizeMake(216*(i+1), 216)];
+            
+            UIButton *selectImage = [[UIButton alloc] initWithFrame:imageView.bounds];
+            [imageView addSubview:selectImage];
+        }
+    }
     
     [self.textOption setSelected:NO];
     [self.imageOption setSelected:YES];
@@ -282,6 +335,15 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (ALAssetsLibrary *)defaultAssetsLibrary {
+    static dispatch_once_t pred = 0;
+    static ALAssetsLibrary *library = nil;
+    dispatch_once(&pred, ^{
+        library = [[ALAssetsLibrary alloc] init];
+    });
+    return library;
 }
 
 - (void)didReceiveMemoryWarning {
