@@ -43,6 +43,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIKeyboardWillChangeFrameNotification object:nil];
+    
     //Tracking tap
     UITapGestureRecognizer *tapInScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapInScreen)];
     [self.chatTableView addGestureRecognizer:tapInScreen];
@@ -101,7 +103,10 @@
 }
 
 - (void)keyboardWillChangeFrame:(NSNotification *)notification {
-    
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    if (self.typeAMessageTextView.isEditable) {
+        self.keyboardControlLayoutConstraint.constant = keyboardSize.height;
+    }
 }
 
 #pragma mark - Tracking tap
@@ -112,6 +117,7 @@
     [self.imageOption setSelected:NO];
     
     self.typeAMessageTextView.hidden = NO;
+    self.sendButton.hidden = NO;
     self.accessoryLayoutConstraint.constant = 75;
     [self accessoryViewDidChange];
     self.keyboardControlLayoutConstraint.constant = 0;
@@ -267,6 +273,7 @@
     [self.imageOption setSelected:NO];
     
     self.typeAMessageTextView.hidden = NO;
+    self.sendButton.hidden = NO;
     self.accessoryLayoutConstraint.constant = 75;
     [self accessoryViewDidChange];
     [UIView animateWithDuration:0.2 animations:^{
@@ -284,7 +291,6 @@
     
     if (self.assets.count == 0) {
         ALAssetsGroupEnumerationResultsBlock assetsEnumerationBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            
             if (result) {
                 [self.assets insertObject:result atIndex:0];
             }
@@ -295,7 +301,6 @@
         };
         
         ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-            
             ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
             [group setAssetsFilter:onlyPhotosFilter];
             if ([group numberOfAssets] > 0) {
@@ -303,8 +308,6 @@
                     [group enumerateAssetsUsingBlock:assetsEnumerationBlock];
                 }
             }
-            
-            
         };
         
         [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:listGroupBlock failureBlock:^(NSError *error) {
@@ -316,6 +319,7 @@
     [self.imageOption setSelected:YES];
     
     self.typeAMessageTextView.hidden = YES;
+    self.sendButton.hidden = YES;
     self.accessoryLayoutConstraint.constant = 40;
     self.keyboardControlLayoutConstraint.constant = 216;
     [UIView animateWithDuration:0.2 animations:^{
@@ -339,7 +343,7 @@
     [self.extendScrollView setContentSize:CGSizeMake(216*self.assets.count, 216)];
     
     for (int i = 0; i < self.assets.count; i++) {
-        UIImageView *imageView = imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             UIImage *image = [UIImage imageWithCGImage:[[self.assets[i] defaultRepresentation] fullScreenImage]];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -348,13 +352,13 @@
         });
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.layer.masksToBounds = YES;
+        imageView.userInteractionEnabled = YES;
         [self.extendScrollView addSubview:imageView];
         
-        UIButton *selectImage = [[UIButton alloc] initWithFrame:imageView.bounds];
-        [selectImage setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [selectImage setImage:[UIImage imageNamed:@""] forState:UIControlStateSelected];
-        [selectImage addTarget:self action:@selector(selectedImageAccessory:) forControlEvents:UIControlEventTouchUpInside];
-        [imageView addSubview:selectImage];
+        UIButton *selectImageButton = [[UIButton alloc] initWithFrame:CGRectMake(216/2 - 56/2, 216/2 - 56/2, 56, 56)];
+        [selectImageButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [selectImageButton addTarget:self action:@selector(selectedImageAccessory:) forControlEvents:UIControlEventTouchUpInside];
+        [imageView addSubview:selectImageButton];
     }
 }
 
