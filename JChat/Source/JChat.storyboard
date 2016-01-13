@@ -240,16 +240,26 @@
                                     <outlet property="delegate" destination="20A-WY-cup" id="cx4-hf-R2e"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLo-SZ-bb8">
+                                <rect key="frame" x="0.0" y="568" width="320" height="216"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="D6P-mh-FsG"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vwB-5r-TqJ" firstAttribute="top" secondItem="0GD-r7-8gt" secondAttribute="bottom" id="Bu6-0P-cmP"/>
                             <constraint firstItem="1SK-Jf-tco" firstAttribute="leading" secondItem="2YD-fV-Xz5" secondAttribute="leading" id="Dxd-Z3-DMU"/>
                             <constraint firstAttribute="trailing" secondItem="1SK-Jf-tco" secondAttribute="trailing" id="ERv-ck-uun"/>
+                            <constraint firstItem="GLo-SZ-bb8" firstAttribute="centerX" secondItem="1SK-Jf-tco" secondAttribute="centerX" id="MKy-4f-QzO"/>
                             <constraint firstAttribute="trailing" secondItem="vwB-5r-TqJ" secondAttribute="trailing" id="SbF-CS-Sk2"/>
                             <constraint firstItem="aDH-q1-dfb" firstAttribute="top" secondItem="1SK-Jf-tco" secondAttribute="bottom" id="Uzn-zG-d5E"/>
                             <constraint firstItem="1SK-Jf-tco" firstAttribute="top" secondItem="vwB-5r-TqJ" secondAttribute="bottom" id="WUn-iX-D4v"/>
                             <constraint firstItem="vwB-5r-TqJ" firstAttribute="leading" secondItem="2YD-fV-Xz5" secondAttribute="leading" id="Zqs-56-wYs"/>
+                            <constraint firstItem="GLo-SZ-bb8" firstAttribute="width" secondItem="1SK-Jf-tco" secondAttribute="width" id="hmX-Lz-Jq5"/>
+                            <constraint firstItem="GLo-SZ-bb8" firstAttribute="bottom" secondItem="1SK-Jf-tco" secondAttribute="bottom" constant="216" id="nyL-jj-zUx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="67c-yi-2Fn"/>

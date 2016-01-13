@@ -79,14 +79,18 @@
 #pragma mark - Notification
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    self.keyboardControlLayoutConstraint.constant = keyboardSize.height;
+    if (!self.textOption.isSelected) {
+        self.keyboardControlLayoutConstraint.constant = keyboardSize.height;
+    }
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    self.keyboardControlLayoutConstraint.constant = 0;
+    if (!self.textOption.isSelected) {
+        self.keyboardControlLayoutConstraint.constant = 0;
+    }
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -105,6 +109,7 @@
     
     self.typeAMessageTextView.hidden = NO;
     self.accessoryLayoutConstraint.constant = 75;
+    self.keyboardControlLayoutConstraint.constant = 0;
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -251,10 +256,10 @@
 }
 
 - (IBAction)textOptionAction:(id)sender {
+    [self.typeAMessageTextView becomeFirstResponder];
+    
     [self.textOption setSelected:YES];
     [self.imageOption setSelected:NO];
-    
-    [self.typeAMessageTextView becomeFirstResponder];
     
     self.typeAMessageTextView.hidden = NO;
     self.accessoryLayoutConstraint.constant = 75;
@@ -264,15 +269,18 @@
 }
 
 - (IBAction)imageOptionAction:(id)sender {
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    
     [self.textOption setSelected:NO];
     [self.imageOption setSelected:YES];
     
-    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-    
     self.typeAMessageTextView.hidden = YES;
     self.accessoryLayoutConstraint.constant = 40;
+    self.keyboardControlLayoutConstraint.constant = 216;
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
     }];
 }
 
