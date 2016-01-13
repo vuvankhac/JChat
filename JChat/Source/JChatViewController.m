@@ -18,9 +18,10 @@
 @property (strong, nonatomic) NSMutableArray *messagesArray;
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderDisplayName;
+@property (strong, nonatomic) NSMutableArray *assets;
+@property (strong, nonatomic) ALAssetsLibrary *assetsLibrary;
 @property (strong, nonatomic) UIView *accessoryBackgroundView;
 @property (strong, nonatomic) UIScrollView *extendScrollView;
-@property (strong, nonatomic) NSMutableArray *photos;
 @property (weak, nonatomic) IBOutlet UIView *backgroundExtendView;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIView *inputView;
@@ -44,7 +45,8 @@
     
     //Tracking tap
     UITapGestureRecognizer *tapInScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapInScreen)];
-    [self.view addGestureRecognizer:tapInScreen];
+    [self.chatTableView addGestureRecognizer:tapInScreen];
+    tapInScreen.cancelsTouchesInView = YES;
     
     self.typeAMessageTextView.placeholder = @"Type a message";
     self.typeAMessageTextView.showsVerticalScrollIndicator = NO;
@@ -280,48 +282,34 @@
         [self.backgroundExtendView addSubview:self.extendScrollView];
     }
     
-    if (!self.photos) {
-        NSMutableArray *collector = [[NSMutableArray alloc] initWithCapacity:0];
-        ALAssetsLibrary *al = [self defaultAssetsLibrary];
-        
-        [al enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop) {
-                if (asset) {
-                    [collector addObject:asset];
-                }
-                self.photos = collector;
-            }];
+    if (self.assets.count == 0) {
+        ALAssetsGroupEnumerationResultsBlock assetsEnumerationBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
             
-            for (int i = 0; i < self.photos.count; i++) {
-                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
-                [imageView setImage:[UIImage imageWithCGImage:[[self.photos[i] defaultRepresentation] fullScreenImage]]];
-                imageView.contentMode = UIViewContentModeScaleAspectFill;
-                imageView.layer.masksToBounds = YES;
-                [self.extendScrollView addSubview:imageView];
-                [self.extendScrollView setContentSize:CGSizeMake(216*(i+1), 216)];
-                
-                UIButton *selectImage = [[UIButton alloc] initWithFrame:imageView.bounds];
-                [imageView addSubview:selectImage];
+            if (result) {
+                [self.assets insertObject:result atIndex:0];
             }
             
-        } failureBlock:^(NSError *error) {
-            NSLog(@"Boom!!!");
-        }
-         ];
-    }
-    
-    if (self.photos) {
-        for (int i = 0; i < self.photos.count; i++) {
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
-            [imageView setImage:[UIImage imageWithCGImage:[[self.photos[i] defaultRepresentation] fullScreenImage]]];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.layer.masksToBounds = YES;
-            [self.extendScrollView addSubview:imageView];
-            [self.extendScrollView setContentSize:CGSizeMake(216*(i+1), 216)];
+            if (index == NSNotFound) {
+                [self reloadImageData];
+            }
+        };
+        
+        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
             
-            UIButton *selectImage = [[UIButton alloc] initWithFrame:imageView.bounds];
-            [imageView addSubview:selectImage];
-        }
+            ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+            [group setAssetsFilter:onlyPhotosFilter];
+            if ([group numberOfAssets] > 0) {
+                if ([[group valueForProperty:ALAssetsGroupPropertyType] intValue] == ALAssetsGroupSavedPhotos) {
+                    [group enumerateAssetsUsingBlock:assetsEnumerationBlock];
+                }
+            }
+            
+            
+        };
+        
+        [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:listGroupBlock failureBlock:^(NSError *error) {
+            NSLog(@"Load Photos Error: %@", error);
+        }];
     }
     
     [self.textOption setSelected:NO];
@@ -337,13 +325,56 @@
     }];
 }
 
-- (ALAssetsLibrary *)defaultAssetsLibrary {
-    static dispatch_once_t pred = 0;
-    static ALAssetsLibrary *library = nil;
-    dispatch_once(&pred, ^{
-        library = [[ALAssetsLibrary alloc] init];
-    });
-    return library;
+#pragma mark - Get image from iPhone
+- (void)selectedImageAccessory:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    if (button.isSelected) {
+        [button setSelected:NO];
+    } else {
+        [button setSelected:YES];
+    }
+}
+
+- (void)reloadImageData {
+    [self.extendScrollView setContentSize:CGSizeMake(216*self.assets.count, 216)];
+    
+    for (int i = 0; i < self.assets.count; i++) {
+        UIImageView *imageView = imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            UIImage *image = [UIImage imageWithCGImage:[[self.assets[i] defaultRepresentation] fullScreenImage]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [imageView setImage:image];
+            });
+        });
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.layer.masksToBounds = YES;
+        [self.extendScrollView addSubview:imageView];
+        
+        UIButton *selectImage = [[UIButton alloc] initWithFrame:imageView.bounds];
+        [selectImage setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [selectImage setImage:[UIImage imageNamed:@""] forState:UIControlStateSelected];
+        [selectImage addTarget:self action:@selector(selectedImageAccessory:) forControlEvents:UIControlEventTouchUpInside];
+        [imageView addSubview:selectImage];
+    }
+}
+
+- (NSMutableArray *)assets {
+    if (_assets == nil) {
+        _assets = [[NSMutableArray alloc] init];
+    }
+    return _assets;
+}
+
+- (ALAssetsLibrary *)assetsLibrary {
+    if (_assetsLibrary == nil) {
+        _assetsLibrary = [[ALAssetsLibrary alloc] init];
+    }
+    return _assetsLibrary;
+}
+
+#pragma mark - Rotate
+- (void)viewWillLayoutSubviews {
+    self.extendScrollView.frame = self.backgroundExtendView.bounds;
 }
 
 - (void)didReceiveMemoryWarning {
