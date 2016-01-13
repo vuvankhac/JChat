@@ -102,6 +102,12 @@
     
     [self.textOption setSelected:NO];
     [self.imageOption setSelected:NO];
+    
+    self.typeAMessageTextView.hidden = NO;
+    self.accessoryLayoutConstraint.constant = 75;
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 #pragma mark - TabbleViewDelegate
@@ -249,6 +255,12 @@
     [self.imageOption setSelected:NO];
     
     [self.typeAMessageTextView becomeFirstResponder];
+    
+    self.typeAMessageTextView.hidden = NO;
+    self.accessoryLayoutConstraint.constant = 75;
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (IBAction)imageOptionAction:(id)sender {
@@ -256,6 +268,12 @@
     [self.imageOption setSelected:YES];
     
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    
+    self.typeAMessageTextView.hidden = YES;
+    self.accessoryLayoutConstraint.constant = 40;
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
