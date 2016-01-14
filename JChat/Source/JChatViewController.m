@@ -18,7 +18,6 @@
 
 @interface JChatViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, CellDelegate>
 
-@property (strong, nonatomic) NSMutableArray *messagesArray;
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderDisplayName;
 @property (strong, nonatomic) NSMutableArray *assets;
@@ -64,20 +63,6 @@
     self.senderID = @"me";
     self.senderDisplayName = @"Vũ Văn Khắc";
     
-    JMessages *textMe = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName createAtDate:[NSDate date] textMessage:@"Hello, how are you?" mediaData:nil];
-    
-    JMessages *textYou = [[JMessages alloc] initWithSenderID:@"khacvv" displayName:@"Jana Dev" createAtDate:[NSDate date] textMessage:@"Hello, how are you?" mediaData:nil];
-    
-    self.messagesArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 50; i++) {
-        NSInteger randomNumber = arc4random()%2;
-        if (randomNumber == 0) {
-            [self.messagesArray addObject:textMe];
-        } else {
-            [self.messagesArray addObject:textYou];
-        }
-    }
-    
     [self loadImageFromiPhone];
 }
 
@@ -88,6 +73,8 @@
     self.showImageCollectionView.delegate = self;
     self.showImageCollectionView.dataSource = self;
     [self.showImageCollectionView registerClass:[SendImageCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    UINib *nib = [UINib nibWithNibName:@"SendImageCollectionViewCell" bundle: nil];
+    [self.showImageCollectionView registerNib:nib forCellWithReuseIdentifier:@"cellIdentifier"];
     self.showImageCollectionView.backgroundColor = [UIColor clearColor];
     [self.backgroundExtendView addSubview:self.showImageCollectionView];
     
@@ -156,10 +143,10 @@
     
     self.typeAMessageTextView.hidden = NO;
     self.sendButton.hidden = NO;
-    self.accessoryLayoutConstraint.constant = 75;
     [self accessoryViewDidChange];
+    self.accessoryLayoutConstraint.constant = 75;
     self.keyboardControlLayoutConstraint.constant = 0;
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
 }
@@ -402,16 +389,6 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *identifier = @"cellIdentifier";
-    BOOL cellLoaded = NO;
-    
-    if (!cellLoaded) {
-        UINib *nib = [UINib nibWithNibName:@"SendImageCollectionViewCell" bundle: nil];
-        [collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
-        cellLoaded = YES;
-    }
-    
     SendImageCollectionViewCell *cell = (SendImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     
     cell.tempImageView.image = [UIImage imageWithCGImage:[[self.assets[indexPath.row] defaultRepresentation] fullScreenImage]];

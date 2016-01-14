@@ -10,4 +10,5 @@
 
 @interface JChatViewController : UIViewController
 
+@property (strong, nonatomic) NSMutableArray *messagesArray;
 @end
