@@ -11,9 +11,10 @@
 #import "JMessageTypeText.h"
 #import "MeTableViewCell.h"
 #import "YouTableViewCell.h"
+#import "SendImageCollectionViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface JChatViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface JChatViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, CellDelegate>
 
 @property (strong, nonatomic) NSMutableArray *messagesArray;
 @property (strong, nonatomic) NSString *senderID;
@@ -21,7 +22,9 @@
 @property (strong, nonatomic) NSMutableArray *assets;
 @property (strong, nonatomic) ALAssetsLibrary *assetsLibrary;
 @property (strong, nonatomic) UIView *accessoryBackgroundView;
-@property (strong, nonatomic) UIScrollView *extendScrollView;
+@property (strong, nonatomic) UICollectionView *showImageCollectionView;
+@property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
+@property (strong, nonatomic) UIButton *sendInCollectionView;
 @property (weak, nonatomic) IBOutlet UIView *backgroundExtendView;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIView *inputView;
@@ -286,9 +289,15 @@
 - (IBAction)imageOptionAction:(id)sender {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
     
-    if (!self.extendScrollView) {
-        self.extendScrollView = [[UIScrollView alloc] initWithFrame:self.backgroundExtendView.bounds];
-        [self.backgroundExtendView addSubview:self.extendScrollView];
+    if (!self.showImageCollectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        self.showImageCollectionView = [[UICollectionView alloc] initWithFrame:self.backgroundExtendView.bounds collectionViewLayout:layout];
+        self.showImageCollectionView.delegate = self;
+        self.showImageCollectionView.dataSource = self;
+        [self.showImageCollectionView registerClass:[SendImageCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+        self.showImageCollectionView.backgroundColor = [UIColor clearColor];
+        [self.backgroundExtendView addSubview:self.showImageCollectionView];
     }
     
     if (self.assets.count == 0) {
@@ -298,7 +307,7 @@
             }
             
             if (index == NSNotFound) {
-                [self reloadImageData];
+                [self.showImageCollectionView reloadData];
             }
         };
         
@@ -331,37 +340,64 @@
     }];
 }
 
-#pragma mark - Get image from iPhone
-- (void)selectedImageAccessory:(id)sender {
-    UIButton *button = (UIButton *)sender;
-    if (button.isSelected) {
-        [button setSelected:NO];
-    } else {
-        [button setSelected:YES];
-    }
+#pragma mark - Collection View Delegate - Collection View Data Source
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.assets.count;
 }
 
-- (void)reloadImageData {
-    [self.extendScrollView setContentSize:CGSizeMake(216*self.assets.count, 216)];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    for (int i = 0; i < self.assets.count; i++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*216, 0, 216, 216)];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            UIImage *image = [UIImage imageWithCGImage:[[self.assets[i] defaultRepresentation] fullScreenImage]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [imageView setImage:image];
-            });
-        });
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.layer.masksToBounds = YES;
-        imageView.userInteractionEnabled = YES;
-        [self.extendScrollView addSubview:imageView];
-        
-        UIButton *selectImageButton = [[UIButton alloc] initWithFrame:CGRectMake(216/2 - 56/2, 216/2 - 56/2, 56, 56)];
-        [selectImageButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [selectImageButton addTarget:self action:@selector(selectedImageAccessory:) forControlEvents:UIControlEventTouchUpInside];
-        [imageView addSubview:selectImageButton];
+    NSString *identifier = @"cellIdentifier";
+    static BOOL cellLoaded = NO;
+    
+    if (!cellLoaded) {
+        UINib *nib = [UINib nibWithNibName:@"SendImageCollectionViewCell" bundle: nil];
+        [collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
+        cellLoaded = YES;
     }
+    
+    SendImageCollectionViewCell *cell = (SendImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    
+    cell.tempImageView.image = [UIImage imageWithCGImage:[[self.assets[indexPath.row] defaultRepresentation] fullScreenImage]];
+    
+    cell.delegate = self;
+    cell.cellIndex = indexPath.row;
+    
+    cell.tempButton.hidden = YES;
+    if (self.selectedItemIndexPath == indexPath) {
+        cell.tempButton.hidden = NO;
+    }
+    
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(216, 216);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0.0;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithObject:indexPath];
+    
+    if (self.selectedItemIndexPath) {
+        if ([indexPath compare:self.selectedItemIndexPath] == NSOrderedSame) {
+            self.selectedItemIndexPath = nil;
+        } else {
+            [indexPaths addObject:self.selectedItemIndexPath];
+            self.selectedItemIndexPath = indexPath;
+        }
+    } else {
+        self.selectedItemIndexPath = indexPath;
+    }
+    
+    [collectionView reloadItemsAtIndexPaths:indexPaths];
+}
+
+- (void)didClickOnCellAtIndex:(NSInteger)cellIndex withImage:(UIImage *)image {
+    NSLog(@"Cell at Index: %ld clicked.\n Image received : %@", (long)cellIndex, image);
 }
 
 - (NSMutableArray *)assets {
@@ -380,7 +416,7 @@
 
 #pragma mark - Rotate
 - (void)viewWillLayoutSubviews {
-    self.extendScrollView.frame = self.backgroundExtendView.bounds;
+    self.showImageCollectionView.frame = self.backgroundExtendView.bounds;
 }
 
 - (void)didReceiveMemoryWarning {

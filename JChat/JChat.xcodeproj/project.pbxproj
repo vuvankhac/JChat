@@ -32,6 +32,8 @@
 		3DF354DA1C4500B900F85E38 /* photos-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF354D71C4500B900F85E38 /* photos-icon.png */; };
 		3DF354DB1C4500B900F85E38 /* photos-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF354D81C4500B900F85E38 /* photos-icon@2x.png */; };
 		3DF354DC1C4500B900F85E38 /* photos-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF354D91C4500B900F85E38 /* photos-icon@3x.png */; };
+		3DFCCEAF1C473B65001E2034 /* SendImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCCEAD1C473B65001E2034 /* SendImageCollectionViewCell.m */; };
+		3DFCCEB01C473B65001E2034 /* SendImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DFCCEAE1C473B65001E2034 /* SendImageCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,9 @@
 		3DF354D71C4500B900F85E38 /* photos-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photos-icon.png"; sourceTree = "<group>"; };
 		3DF354D81C4500B900F85E38 /* photos-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photos-icon@2x.png"; sourceTree = "<group>"; };
 		3DF354D91C4500B900F85E38 /* photos-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photos-icon@3x.png"; sourceTree = "<group>"; };
+		3DFCCEAC1C473B65001E2034 /* SendImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendImageCollectionViewCell.h; sourceTree = "<group>"; };
+		3DFCCEAD1C473B65001E2034 /* SendImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendImageCollectionViewCell.m; sourceTree = "<group>"; };
+		3DFCCEAE1C473B65001E2034 /* SendImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendImageCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +132,7 @@
 		3DF30BA21C43507F00EAE12D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3DFCCEAA1C473B26001E2034 /* AccessoryView */,
 				3DF30BB91C43A6CD00EAE12D /* Items */,
 				3DF30BB21C438E3C00EAE12D /* MessageUI */,
 				3DF30BAE1C436DE100EAE12D /* JMessages */,
@@ -184,6 +190,24 @@
 				3DF30BBC1C43A6DA00EAE12D /* avatar-none-male-bigger@3x.png */,
 			);
 			path = Items;
+			sourceTree = "<group>";
+		};
+		3DFCCEAA1C473B26001E2034 /* AccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				3DFCCEAB1C473B40001E2034 /* Image Accessory */,
+			);
+			path = AccessoryView;
+			sourceTree = "<group>";
+		};
+		3DFCCEAB1C473B40001E2034 /* Image Accessory */ = {
+			isa = PBXGroup;
+			children = (
+				3DFCCEAC1C473B65001E2034 /* SendImageCollectionViewCell.h */,
+				3DFCCEAD1C473B65001E2034 /* SendImageCollectionViewCell.m */,
+				3DFCCEAE1C473B65001E2034 /* SendImageCollectionViewCell.xib */,
+			);
+			path = "Image Accessory";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,6 +279,7 @@
 				3D01C5B31C45E3D700E6C174 /* photos-selected-icon@3x.png in Resources */,
 				3DF30B921C434DDE00EAE12D /* Assets.xcassets in Resources */,
 				3D01C5B21C45E3D700E6C174 /* photos-selected-icon@2x.png in Resources */,
+				3DFCCEB01C473B65001E2034 /* SendImageCollectionViewCell.xib in Resources */,
 				3DF354DA1C4500B900F85E38 /* photos-icon.png in Resources */,
 				3DF30BBD1C43A6DA00EAE12D /* avatar-none-male-bigger.png in Resources */,
 				3D01C5B81C4634E100E6C174 /* send-button.png in Resources */,
@@ -276,6 +301,7 @@
 				3DF30BA51C43508E00EAE12D /* JChatViewController.m in Sources */,
 				3DF30BB11C436E0500EAE12D /* JMessageTypeText.m in Sources */,
 				3DF30B8A1C434DDE00EAE12D /* ViewController.m in Sources */,
+				3DFCCEAF1C473B65001E2034 /* SendImageCollectionViewCell.m in Sources */,
 				3DF30BB81C438E5D00EAE12D /* YouTableViewCell.m in Sources */,
 				3DF30B871C434DDE00EAE12D /* AppDelegate.m in Sources */,
 				3DF30B841C434DDE00EAE12D /* main.m in Sources */,

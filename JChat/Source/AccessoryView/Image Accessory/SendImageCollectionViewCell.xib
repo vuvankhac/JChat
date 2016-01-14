@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellIdentifier" id="gTV-IL-0wX" customClass="SendImageCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sa5-Ss-ggE">
+                        <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
+                    </imageView>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nr-yI-V0L">
+                        <rect key="frame" x="80" y="80" width="56" height="56"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="56" id="nvZ-vb-sir"/>
+                            <constraint firstAttribute="height" constant="56" id="yzD-Vr-BCT"/>
+                        </constraints>
+                        <state key="normal" image="send-button.png"/>
+                        <connections>
+                            <action selector="sendImageAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="hoJ-eJ-vY4"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="5Nr-yI-V0L" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="7E5-5R-hKr"/>
+                <constraint firstItem="sa5-Ss-ggE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="J6v-BX-A9C"/>
+                <constraint firstItem="sa5-Ss-ggE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WSi-ZS-dzf"/>
+                <constraint firstAttribute="trailing" secondItem="sa5-Ss-ggE" secondAttribute="trailing" id="ibV-gn-hbT"/>
+                <constraint firstAttribute="bottom" secondItem="sa5-Ss-ggE" secondAttribute="bottom" id="szH-5l-YVH"/>
+                <constraint firstItem="5Nr-yI-V0L" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="vSH-zI-wZR"/>
+            </constraints>
+            <connections>
+                <outlet property="tempButton" destination="5Nr-yI-V0L" id="e5h-9Y-LDs"/>
+                <outlet property="tempImageView" destination="sa5-Ss-ggE" id="pZ8-2z-Xq9"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="send-button.png" width="56" height="56"/>
+    </resources>
+</document>
