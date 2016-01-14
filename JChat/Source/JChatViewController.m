@@ -77,6 +77,43 @@
             [self.messagesArray addObject:textYou];
         }
     }
+    
+    [self loadImageFromiPhone];
+}
+
+- (void)loadImageFromiPhone {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    self.showImageCollectionView = [[UICollectionView alloc] initWithFrame:self.backgroundExtendView.bounds collectionViewLayout:layout];
+    self.showImageCollectionView.delegate = self;
+    self.showImageCollectionView.dataSource = self;
+    [self.showImageCollectionView registerClass:[SendImageCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    self.showImageCollectionView.backgroundColor = [UIColor clearColor];
+    [self.backgroundExtendView addSubview:self.showImageCollectionView];
+    
+    ALAssetsGroupEnumerationResultsBlock assetsEnumerationBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
+        if (result) {
+            [self.assets insertObject:result atIndex:0];
+        }
+        
+        if (index == NSNotFound) {
+            [self.showImageCollectionView reloadData];
+        }
+    };
+    
+    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+        [group setAssetsFilter:onlyPhotosFilter];
+        if ([group numberOfAssets] > 0) {
+            if ([[group valueForProperty:ALAssetsGroupPropertyType] intValue] == ALAssetsGroupSavedPhotos) {
+                [group enumerateAssetsUsingBlock:assetsEnumerationBlock];
+            }
+        }
+    };
+    
+    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:listGroupBlock failureBlock:^(NSError *error) {
+        NSLog(@"Load Photos Error: %@", error);
+    }];
 }
 
 #pragma mark - Notification
@@ -318,7 +355,13 @@
 }
 
 - (IBAction)textOptionAction:(id)sender {
-    [self.typeAMessageTextView becomeFirstResponder];
+    if (self.imageOption.isSelected) {
+        [UIView performWithoutAnimation:^{
+            [self.typeAMessageTextView becomeFirstResponder];
+        }];
+    } else {
+        [self.typeAMessageTextView becomeFirstResponder];
+    }
     
     [self.textOption setSelected:YES];
     [self.imageOption setSelected:NO];
@@ -334,43 +377,6 @@
 
 - (IBAction)imageOptionAction:(id)sender {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-    
-    if (!self.showImageCollectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        self.showImageCollectionView = [[UICollectionView alloc] initWithFrame:self.backgroundExtendView.bounds collectionViewLayout:layout];
-        self.showImageCollectionView.delegate = self;
-        self.showImageCollectionView.dataSource = self;
-        [self.showImageCollectionView registerClass:[SendImageCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-        self.showImageCollectionView.backgroundColor = [UIColor clearColor];
-        [self.backgroundExtendView addSubview:self.showImageCollectionView];
-    }
-    
-    if (self.assets.count == 0) {
-        ALAssetsGroupEnumerationResultsBlock assetsEnumerationBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            if (result) {
-                [self.assets insertObject:result atIndex:0];
-            }
-            
-            if (index == NSNotFound) {
-                [self.showImageCollectionView reloadData];
-            }
-        };
-        
-        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-            ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
-            [group setAssetsFilter:onlyPhotosFilter];
-            if ([group numberOfAssets] > 0) {
-                if ([[group valueForProperty:ALAssetsGroupPropertyType] intValue] == ALAssetsGroupSavedPhotos) {
-                    [group enumerateAssetsUsingBlock:assetsEnumerationBlock];
-                }
-            }
-        };
-        
-        [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:listGroupBlock failureBlock:^(NSError *error) {
-            NSLog(@"Load Photos Error: %@", error);
-        }];
-    }
     
     [self.textOption setSelected:NO];
     [self.imageOption setSelected:YES];
@@ -394,7 +400,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSString *identifier = @"cellIdentifier";
-    static BOOL cellLoaded = NO;
+    BOOL cellLoaded = NO;
     
     if (!cellLoaded) {
         UINib *nib = [UINib nibWithNibName:@"SendImageCollectionViewCell" bundle: nil];
