@@ -32,6 +32,7 @@
 		3DF354DA1C4500B900F85E38 /* photos-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF354D71C4500B900F85E38 /* photos-icon.png */; };
 		3DF354DB1C4500B900F85E38 /* photos-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF354D81C4500B900F85E38 /* photos-icon@2x.png */; };
 		3DF354DC1C4500B900F85E38 /* photos-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF354D91C4500B900F85E38 /* photos-icon@3x.png */; };
+		3DF475821C47923E00C17A1A /* avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3DF475811C47923E00C17A1A /* avatar.jpg */; };
 		3DFCCEAF1C473B65001E2034 /* SendImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCCEAD1C473B65001E2034 /* SendImageCollectionViewCell.m */; };
 		3DFCCEB01C473B65001E2034 /* SendImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DFCCEAE1C473B65001E2034 /* SendImageCollectionViewCell.xib */; };
 		3DFCCEB31C474A05001E2034 /* MeImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCCEB21C474A05001E2034 /* MeImageTableViewCell.m */; };
@@ -73,6 +74,7 @@
 		3DF354D71C4500B900F85E38 /* photos-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photos-icon.png"; sourceTree = "<group>"; };
 		3DF354D81C4500B900F85E38 /* photos-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photos-icon@2x.png"; sourceTree = "<group>"; };
 		3DF354D91C4500B900F85E38 /* photos-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photos-icon@3x.png"; sourceTree = "<group>"; };
+		3DF475811C47923E00C17A1A /* avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar.jpg; sourceTree = "<group>"; };
 		3DFCCEAC1C473B65001E2034 /* SendImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendImageCollectionViewCell.h; sourceTree = "<group>"; };
 		3DFCCEAD1C473B65001E2034 /* SendImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendImageCollectionViewCell.m; sourceTree = "<group>"; };
 		3DFCCEAE1C473B65001E2034 /* SendImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				3DF30B861C434DDE00EAE12D /* AppDelegate.m */,
 				3DF30B881C434DDE00EAE12D /* ViewController.h */,
 				3DF30B891C434DDE00EAE12D /* ViewController.m */,
+				3DF475811C47923E00C17A1A /* avatar.jpg */,
 				3DF30B8B1C434DDE00EAE12D /* Main.storyboard */,
 				3DF30B911C434DDE00EAE12D /* Assets.xcassets */,
 				3DF30B931C434DDE00EAE12D /* LaunchScreen.storyboard */,
@@ -292,6 +295,7 @@
 				3DFCCEB01C473B65001E2034 /* SendImageCollectionViewCell.xib in Resources */,
 				3DF354DA1C4500B900F85E38 /* photos-icon.png in Resources */,
 				3DF30BBD1C43A6DA00EAE12D /* avatar-none-male-bigger.png in Resources */,
+				3DF475821C47923E00C17A1A /* avatar.jpg in Resources */,
 				3D01C5B81C4634E100E6C174 /* send-button.png in Resources */,
 				3D01C5B41C45E3D700E6C174 /* photos-selected-icon.png in Resources */,
 				3DF30B8D1C434DDE00EAE12D /* Main.storyboard in Resources */,

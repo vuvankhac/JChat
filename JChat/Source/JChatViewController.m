@@ -47,6 +47,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMessage:) name:@"SMS" object:nil];
+    
     //Tracking tap
     UITapGestureRecognizer *tapInScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapInScreen)];
     [self.chatTableView addGestureRecognizer:tapInScreen];
@@ -214,6 +216,7 @@
         if (![(JMessages *)self.messagesArray[indexPath.row] mediaData]) {
             YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou forIndexPath:indexPath];
             
+            cell.avatarImageView.image = self.guestAvatar;
             cell.contentMessage.text = [(JMessages *)self.messagesArray[indexPath.row] textMessage];
             cell.dateLabel.text = [self convertDate:[(JMessages *)self.messagesArray[indexPath.row] date]];
             
@@ -244,6 +247,7 @@
         } else {
             YouImageTableViewCell *cell = (YouImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYouImage forIndexPath:indexPath];
             
+            cell.avatarImageView.image = self.guestAvatar;
             cell.messageImageView.image = [UIImage imageWithData:[(JMessages *)self.messagesArray[indexPath.row] mediaData]];
             cell.dateLabel.text = [self convertDate:[(JMessages *)self.messagesArray[indexPath.row] date]];
             
@@ -326,6 +330,20 @@
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+#pragma mark - Push
+- (void)didReceiveMessage:(NSNotification *)notification {
+    JMessages *message = [[notification userInfo] valueForKey:@"messages"];
+    [self.messagesArray addObject:message];
+    
+    [UIView performWithoutAnimation:^{
+        [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    
+    if (message.senderID == [[self.messagesArray objectAtIndex:self.messagesArray.count - 1] senderID]) {
+        [self.chatTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 #pragma mark - Action Methods

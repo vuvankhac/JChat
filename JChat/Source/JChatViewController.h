@@ -11,4 +11,5 @@
 @interface JChatViewController : UIViewController
 
 @property (strong, nonatomic) NSMutableArray *messagesArray;
+@property (strong, nonatomic) UIImage *guestAvatar;
 @end
