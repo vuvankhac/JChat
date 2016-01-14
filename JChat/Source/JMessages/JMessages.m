@@ -1,14 +1,14 @@
 //
-//  JMessageTypeText.m
+//  JMessages.m
 //  JChat
 //
 //  Created by Jana on 1/11/16.
 //  Copyright © 2016 khacvv. All rights reserved.
 //
 
-#import "JMessageTypeText.h"
+#import "JMessages.h"
 
-@implementation JMessageTypeText
+@implementation JMessages
 
 - (instancetype)initWithSenderID:(NSString *)senderID displayName:(NSString *)displayName textMessage:(NSString *)textMessage mediaData:(NSData *)mediaData {
     self.senderID = senderID;

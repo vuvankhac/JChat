@@ -23,7 +23,7 @@
 		3DF30BA51C43508E00EAE12D /* JChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BA41C43508E00EAE12D /* JChatViewController.m */; };
 		3DF30BA71C43509F00EAE12D /* JChat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30BA61C43509F00EAE12D /* JChat.storyboard */; };
 		3DF30BAB1C43598800EAE12D /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BAA1C43598800EAE12D /* UITextView+Placeholder.m */; };
-		3DF30BB11C436E0500EAE12D /* JMessageTypeText.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BB01C436E0500EAE12D /* JMessageTypeText.m */; };
+		3DF30BB11C436E0500EAE12D /* JMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BB01C436E0500EAE12D /* JMessages.m */; };
 		3DF30BB51C438E5300EAE12D /* MeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BB41C438E5300EAE12D /* MeTableViewCell.m */; };
 		3DF30BB81C438E5D00EAE12D /* YouTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30BB71C438E5D00EAE12D /* YouTableViewCell.m */; };
 		3DF30BBD1C43A6DA00EAE12D /* avatar-none-male-bigger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF30BBA1C43A6DA00EAE12D /* avatar-none-male-bigger.png */; };
@@ -61,8 +61,8 @@
 		3DF30BA61C43509F00EAE12D /* JChat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JChat.storyboard; sourceTree = "<group>"; };
 		3DF30BA91C43598800EAE12D /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		3DF30BAA1C43598800EAE12D /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
-		3DF30BAF1C436E0500EAE12D /* JMessageTypeText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMessageTypeText.h; sourceTree = "<group>"; };
-		3DF30BB01C436E0500EAE12D /* JMessageTypeText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMessageTypeText.m; sourceTree = "<group>"; };
+		3DF30BAF1C436E0500EAE12D /* JMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMessages.h; sourceTree = "<group>"; };
+		3DF30BB01C436E0500EAE12D /* JMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMessages.m; sourceTree = "<group>"; };
 		3DF30BB31C438E5300EAE12D /* MeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTableViewCell.h; sourceTree = "<group>"; };
 		3DF30BB41C438E5300EAE12D /* MeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTableViewCell.m; sourceTree = "<group>"; };
 		3DF30BB61C438E5D00EAE12D /* YouTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTableViewCell.h; sourceTree = "<group>"; };
@@ -162,8 +162,8 @@
 		3DF30BAE1C436DE100EAE12D /* JMessages */ = {
 			isa = PBXGroup;
 			children = (
-				3DF30BAF1C436E0500EAE12D /* JMessageTypeText.h */,
-				3DF30BB01C436E0500EAE12D /* JMessageTypeText.m */,
+				3DF30BAF1C436E0500EAE12D /* JMessages.h */,
+				3DF30BB01C436E0500EAE12D /* JMessages.m */,
 			);
 			path = JMessages;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 				3DF30BB51C438E5300EAE12D /* MeTableViewCell.m in Sources */,
 				3DF30BAB1C43598800EAE12D /* UITextView+Placeholder.m in Sources */,
 				3DF30BA51C43508E00EAE12D /* JChatViewController.m in Sources */,
-				3DF30BB11C436E0500EAE12D /* JMessageTypeText.m in Sources */,
+				3DF30BB11C436E0500EAE12D /* JMessages.m in Sources */,
 				3DF30B8A1C434DDE00EAE12D /* ViewController.m in Sources */,
 				3DFCCEAF1C473B65001E2034 /* SendImageCollectionViewCell.m in Sources */,
 				3DF30BB81C438E5D00EAE12D /* YouTableViewCell.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import "JChatViewController.h"
 #import "UITextView+Placeholder.h"
-#import "JMessageTypeText.h"
+#import "JMessages.h"
 #import "MeTableViewCell.h"
 #import "YouTableViewCell.h"
 #import "MeImageTableViewCell.h"
@@ -64,9 +64,9 @@
     self.senderID = @"me";
     self.senderDisplayName = @"Vũ Văn Khắc";
     
-    JMessageTypeText *textMe = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:@"Hello, how are you?" mediaData:nil];
+    JMessages *textMe = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:@"Hello, how are you?" mediaData:nil];
     
-    JMessageTypeText *textYou = [[JMessageTypeText alloc] initWithSenderID:@"khacvv" displayName:@"Jana Dev" textMessage:@"Hello, how are you?" mediaData:nil];
+    JMessages *textYou = [[JMessages alloc] initWithSenderID:@"khacvv" displayName:@"Jana Dev" textMessage:@"Hello, how are you?" mediaData:nil];
     
     self.messagesArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 50; i++) {
@@ -175,13 +175,13 @@
     static NSString *identifierMeImage = @"MeImageTableViewCell";
     static NSString *identifierYouImage = @"YouImageTableViewCell";
     
-    if ([[(JMessageTypeText *)self.messagesArray[indexPath.row] senderID] isEqualToString:self.senderID]) {
-        if (![(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]) {
+    if ([[(JMessages *)self.messagesArray[indexPath.row] senderID] isEqualToString:self.senderID]) {
+        if (![(JMessages *)self.messagesArray[indexPath.row] mediaData]) {
             MeTableViewCell *cell = (MeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMe forIndexPath:indexPath];
             
-            cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
+            cell.contentMessage.text = [(JMessages *)self.messagesArray[indexPath.row] textMessage];
             
-            JMessageTypeText *messages;
+            JMessages *messages;
             if (indexPath.row < 1) {
                 messages = [self.messagesArray objectAtIndex:indexPath.row];
             } else {
@@ -201,9 +201,9 @@
         } else {
             MeImageTableViewCell *cell = (MeImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMeImage forIndexPath:indexPath];
             
-            cell.messageImageView.image = [UIImage imageWithData:[(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]];
+            cell.messageImageView.image = [UIImage imageWithData:[(JMessages *)self.messagesArray[indexPath.row] mediaData]];
             
-            JMessageTypeText *messages;
+            JMessages *messages;
             if (indexPath.row < 1) {
                 messages = [self.messagesArray objectAtIndex:indexPath.row];
             } else {
@@ -222,12 +222,12 @@
             return cell;
         }
     } else {
-        if (![(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]) {
+        if (![(JMessages *)self.messagesArray[indexPath.row] mediaData]) {
             YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou forIndexPath:indexPath];
             
-            cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
+            cell.contentMessage.text = [(JMessages *)self.messagesArray[indexPath.row] textMessage];
             
-            JMessageTypeText *messages;
+            JMessages *messages;
             if (indexPath.row < 1) {
                 messages = [self.messagesArray objectAtIndex:indexPath.row];
             } else {
@@ -254,9 +254,9 @@
         } else {
             YouImageTableViewCell *cell = (YouImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYouImage forIndexPath:indexPath];
             
-            cell.messageImageView.image = [UIImage imageWithData:[(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]];
+            cell.messageImageView.image = [UIImage imageWithData:[(JMessages *)self.messagesArray[indexPath.row] mediaData]];
             
-            JMessageTypeText *messages;
+            JMessages *messages;
             if (indexPath.row < 1) {
                 messages = [self.messagesArray objectAtIndex:indexPath.row];
             } else {
@@ -339,7 +339,7 @@
 
 #pragma mark - Action Methods
 - (IBAction)sendAction:(id)sender {
-    JMessageTypeText *sendMessage = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:self.typeAMessageTextView.text mediaData:nil];
+    JMessages *sendMessage = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:self.typeAMessageTextView.text mediaData:nil];
     
     [self.messagesArray addObject:sendMessage];
     self.typeAMessageTextView.text = @"";
@@ -451,7 +451,7 @@
 - (void)didClickOnCellAtIndex:(NSInteger)cellIndex withImage:(UIImage *)image {
     
     NSData *dataImage = UIImagePNGRepresentation(image);
-    JMessageTypeText *sendMessage = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:nil mediaData:dataImage];
+    JMessages *sendMessage = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:nil mediaData:dataImage];
     [self.messagesArray addObject:sendMessage];
     
     [UIView performWithoutAnimation:^{

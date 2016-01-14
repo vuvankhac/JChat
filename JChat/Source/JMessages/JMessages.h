@@ -1,5 +1,5 @@
 //
-//  JMessageTypeText.h
+//  JMessages.h
 //  JChat
 //
 //  Created by Jana on 1/11/16.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JMessageTypeText : NSObject
+@interface JMessages : NSObject
 
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderDisplayName;
