@@ -34,6 +34,8 @@
 		3DF354DC1C4500B900F85E38 /* photos-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF354D91C4500B900F85E38 /* photos-icon@3x.png */; };
 		3DFCCEAF1C473B65001E2034 /* SendImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCCEAD1C473B65001E2034 /* SendImageCollectionViewCell.m */; };
 		3DFCCEB01C473B65001E2034 /* SendImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DFCCEAE1C473B65001E2034 /* SendImageCollectionViewCell.xib */; };
+		3DFCCEB31C474A05001E2034 /* MeImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCCEB21C474A05001E2034 /* MeImageTableViewCell.m */; };
+		3DFCCEB61C474A16001E2034 /* YouImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCCEB51C474A16001E2034 /* YouImageTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,10 @@
 		3DFCCEAC1C473B65001E2034 /* SendImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendImageCollectionViewCell.h; sourceTree = "<group>"; };
 		3DFCCEAD1C473B65001E2034 /* SendImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendImageCollectionViewCell.m; sourceTree = "<group>"; };
 		3DFCCEAE1C473B65001E2034 /* SendImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		3DFCCEB11C474A05001E2034 /* MeImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeImageTableViewCell.h; sourceTree = "<group>"; };
+		3DFCCEB21C474A05001E2034 /* MeImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeImageTableViewCell.m; sourceTree = "<group>"; };
+		3DFCCEB41C474A16001E2034 /* YouImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouImageTableViewCell.h; sourceTree = "<group>"; };
+		3DFCCEB51C474A16001E2034 /* YouImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouImageTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +175,10 @@
 				3DF30BB41C438E5300EAE12D /* MeTableViewCell.m */,
 				3DF30BB61C438E5D00EAE12D /* YouTableViewCell.h */,
 				3DF30BB71C438E5D00EAE12D /* YouTableViewCell.m */,
+				3DFCCEB11C474A05001E2034 /* MeImageTableViewCell.h */,
+				3DFCCEB21C474A05001E2034 /* MeImageTableViewCell.m */,
+				3DFCCEB41C474A16001E2034 /* YouImageTableViewCell.h */,
+				3DFCCEB51C474A16001E2034 /* YouImageTableViewCell.m */,
 			);
 			path = MessageUI;
 			sourceTree = "<group>";
@@ -295,6 +305,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DFCCEB31C474A05001E2034 /* MeImageTableViewCell.m in Sources */,
+				3DFCCEB61C474A16001E2034 /* YouImageTableViewCell.m in Sources */,
 				3DF30B901C434DDE00EAE12D /* JChat.xcdatamodeld in Sources */,
 				3DF30BB51C438E5300EAE12D /* MeTableViewCell.m in Sources */,
 				3DF30BAB1C43598800EAE12D /* UITextView+Placeholder.m in Sources */,

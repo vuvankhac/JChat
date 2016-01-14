@@ -11,6 +11,8 @@
 #import "JMessageTypeText.h"
 #import "MeTableViewCell.h"
 #import "YouTableViewCell.h"
+#import "MeImageTableViewCell.h"
+#import "YouImageTableViewCell.h"
 #import "SendImageCollectionViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -62,15 +64,9 @@
     self.senderID = @"me";
     self.senderDisplayName = @"Vũ Văn Khắc";
     
-    JMessageTypeText *textMe = [[JMessageTypeText alloc] init];
-    textMe.senderID = self.senderID;
-    textMe.senderDisplayName = self.senderDisplayName;
-    textMe.textMessage = @"Hello Jana, welcome to vietnam. I really like you.";
+    JMessageTypeText *textMe = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:@"Hello, how are you?" mediaData:nil];
     
-    JMessageTypeText *textYou = [[JMessageTypeText alloc] init];
-    textYou.senderID = @"khacvv";
-    textYou.senderDisplayName = @"Jana";
-    textYou.textMessage = @"Hello, can you speak english. hihihihihihi.";
+    JMessageTypeText *textYou = [[JMessageTypeText alloc] initWithSenderID:@"khacvv" displayName:@"Jana Dev" textMessage:@"Hello, how are you?" mediaData:nil];
     
     self.messagesArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 50; i++) {
@@ -139,58 +135,108 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifierMe = @"MeCell";
     static NSString *identifierYou = @"YouCell";
+    static NSString *identifierMeImage = @"MeImageTableViewCell";
+    static NSString *identifierYouImage = @"YouImageTableViewCell";
     
     if ([[(JMessageTypeText *)self.messagesArray[indexPath.row] senderID] isEqualToString:self.senderID]) {
-        MeTableViewCell *cell = (MeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMe forIndexPath:indexPath];
-        
-        cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
-        
-        JMessageTypeText *messages;
-        if (indexPath.row < 1) {
-            messages = [self.messagesArray objectAtIndex:indexPath.row];
-        } else {
-            messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
-        }
-        
-        if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
-            cell.heightOfDateLayoutConstraint.constant = 0;
-        } else {
-            cell.heightOfDateLayoutConstraint.constant = 15;
-        }
-        
-        cell.layer.shouldRasterize = YES;
-        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-        
-        return cell;
-    } else {
-        YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou forIndexPath:indexPath];
-        
-        cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
-        
-        JMessageTypeText *messages;
-        if (indexPath.row < 1) {
-            messages = [self.messagesArray objectAtIndex:indexPath.row];
-        } else {
-            messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
-        }
-        
-        if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
-            cell.heightOfDateLayoutConstraint.constant = 0;
-        } else {
-            cell.heightOfDateLayoutConstraint.constant = 15;
-        }
-        
-        cell.avatarImageView.hidden = NO;
-        if (indexPath.row < self.messagesArray.count - 1) {
-            if ([[self.messagesArray objectAtIndex:indexPath.row] senderID] == [[self.messagesArray objectAtIndex:indexPath.row + 1] senderID]) {
-                cell.avatarImageView.hidden = YES;
+        if (![(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]) {
+            MeTableViewCell *cell = (MeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMe forIndexPath:indexPath];
+            
+            cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
+            
+            JMessageTypeText *messages;
+            if (indexPath.row < 1) {
+                messages = [self.messagesArray objectAtIndex:indexPath.row];
+            } else {
+                messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
             }
+            
+            if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
+                cell.heightOfDateLayoutConstraint.constant = 0;
+            } else {
+                cell.heightOfDateLayoutConstraint.constant = 15;
+            }
+            
+            cell.layer.shouldRasterize = YES;
+            cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+            
+            return cell;
+        } else {
+            MeImageTableViewCell *cell = (MeImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMeImage forIndexPath:indexPath];
+            
+            cell.messageImageView.image = [UIImage imageWithData:[(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]];
+            
+            JMessageTypeText *messages;
+            if (indexPath.row < 1) {
+                messages = [self.messagesArray objectAtIndex:indexPath.row];
+            } else {
+                messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
+            }
+            
+            if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
+                cell.heightOfDateLayoutConstraint.constant = 0;
+            } else {
+                cell.heightOfDateLayoutConstraint.constant = 15;
+            }
+            
+            cell.layer.shouldRasterize = YES;
+            cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+            
+            return cell;
         }
-        
-        cell.layer.shouldRasterize = YES;
-        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-        
-        return cell;
+    } else {
+        if (![(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]) {
+            YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou forIndexPath:indexPath];
+            
+            cell.contentMessage.text = [(JMessageTypeText *)self.messagesArray[indexPath.row] textMessage];
+            
+            JMessageTypeText *messages;
+            if (indexPath.row < 1) {
+                messages = [self.messagesArray objectAtIndex:indexPath.row];
+            } else {
+                messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
+            }
+            
+            if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
+                cell.heightOfDateLayoutConstraint.constant = 0;
+            } else {
+                cell.heightOfDateLayoutConstraint.constant = 15;
+            }
+            
+            cell.avatarImageView.hidden = NO;
+            if (indexPath.row < self.messagesArray.count - 1) {
+                if ([[self.messagesArray objectAtIndex:indexPath.row] senderID] == [[self.messagesArray objectAtIndex:indexPath.row + 1] senderID]) {
+                    cell.avatarImageView.hidden = YES;
+                }
+            }
+            
+            cell.layer.shouldRasterize = YES;
+            cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+            
+            return cell;
+        } else {
+            YouImageTableViewCell *cell = (YouImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYouImage forIndexPath:indexPath];
+            
+            cell.messageImageView.image = [UIImage imageWithData:[(JMessageTypeText *)self.messagesArray[indexPath.row] mediaData]];
+            
+            JMessageTypeText *messages;
+            if (indexPath.row < 1) {
+                messages = [self.messagesArray objectAtIndex:indexPath.row];
+            } else {
+                messages = [self.messagesArray objectAtIndex:indexPath.row - 1];
+            }
+            
+            if (messages.senderID == [[self.messagesArray objectAtIndex:indexPath.row] senderID] && indexPath.row != 0) {
+                cell.heightOfDateLayoutConstraint.constant = 0;
+            } else {
+                cell.heightOfDateLayoutConstraint.constant = 15;
+            }
+            
+            cell.layer.shouldRasterize = YES;
+            cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+            
+            return cell;
+        }
     }
 }
 
@@ -256,7 +302,7 @@
 
 #pragma mark - Action Methods
 - (IBAction)sendAction:(id)sender {
-    JMessageTypeText *sendMessage = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:self.typeAMessageTextView.text];
+    JMessageTypeText *sendMessage = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:self.typeAMessageTextView.text mediaData:nil];
     
     [self.messagesArray addObject:sendMessage];
     self.typeAMessageTextView.text = @"";
@@ -264,9 +310,9 @@
     
     [self accessoryViewDidChange];
     
-    [self.chatTableView beginUpdates];
-    [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    [self.chatTableView endUpdates];
+    [UIView performWithoutAnimation:^{
+        [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
     
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
@@ -397,7 +443,16 @@
 }
 
 - (void)didClickOnCellAtIndex:(NSInteger)cellIndex withImage:(UIImage *)image {
-    NSLog(@"Cell at Index: %ld clicked.\n Image received : %@", (long)cellIndex, image);
+    
+    NSData *dataImage = UIImagePNGRepresentation(image);
+    JMessageTypeText *sendMessage = [[JMessageTypeText alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:nil mediaData:dataImage];
+    [self.messagesArray addObject:sendMessage];
+    
+    [UIView performWithoutAnimation:^{
+        [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 - (NSMutableArray *)assets {

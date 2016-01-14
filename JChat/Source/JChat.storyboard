@@ -234,6 +234,110 @@
                                             <outlet property="heightOfDateLayoutConstraint" destination="8vD-B6-4ru" id="WsA-gm-c9A"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeImageTableViewCell" rowHeight="155" id="vaj-gF-IAP" customClass="MeImageTableViewCell">
+                                        <rect key="frame" x="0.0" y="138" width="320" height="155"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vaj-gF-IAP" id="syv-xK-rVc">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Je2-YS-ZJe">
+                                                    <rect key="frame" x="72" y="17" width="240" height="136"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="136" id="JRm-Z4-sAr"/>
+                                                        <constraint firstAttribute="width" constant="240" id="tsP-un-eX5"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 03, 1993 03:03 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgQ-e6-NFY">
+                                                    <rect key="frame" x="8" y="0.0" width="304" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="m4z-zx-4FQ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="NgQ-e6-NFY" firstAttribute="leading" secondItem="syv-xK-rVc" secondAttribute="leading" constant="8" id="1Lp-Ia-WJp"/>
+                                                <constraint firstItem="Je2-YS-ZJe" firstAttribute="top" secondItem="NgQ-e6-NFY" secondAttribute="bottom" constant="2" id="53a-H0-y3B"/>
+                                                <constraint firstAttribute="trailing" secondItem="NgQ-e6-NFY" secondAttribute="trailing" constant="8" id="Tlb-oH-5Rb"/>
+                                                <constraint firstAttribute="trailing" secondItem="Je2-YS-ZJe" secondAttribute="trailing" constant="8" id="UfS-xn-a4u"/>
+                                                <constraint firstItem="NgQ-e6-NFY" firstAttribute="top" secondItem="syv-xK-rVc" secondAttribute="top" id="WOE-cm-Flo"/>
+                                                <constraint firstAttribute="bottom" secondItem="Je2-YS-ZJe" secondAttribute="bottom" constant="2" id="mCv-Ru-FYj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="heightOfDateLayoutConstraint" destination="m4z-zx-4FQ" id="5pp-ZJ-Byz"/>
+                                            <outlet property="messageImageView" destination="Je2-YS-ZJe" id="sbQ-jd-Y3F"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="YouImageTableViewCell" rowHeight="155" id="iJ3-Xk-2Jw" customClass="YouImageTableViewCell">
+                                        <rect key="frame" x="0.0" y="293" width="320" height="155"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iJ3-Xk-2Jw" id="WCc-TS-wk9">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-none-male-bigger.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mj8-vN-AsG">
+                                                    <rect key="frame" x="8" y="123" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="csc-Ui-4fw"/>
+                                                        <constraint firstAttribute="height" constant="30" id="rLn-1Y-FFI"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZoN-QG-XFh">
+                                                    <rect key="frame" x="46" y="17" width="240" height="136"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="240" id="D7F-3Z-PwA"/>
+                                                        <constraint firstAttribute="height" constant="136" id="oxe-KH-nCP"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 03, 1993 03:03 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUF-5Y-4Wa">
+                                                    <rect key="frame" x="8" y="0.0" width="304" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="hM9-fx-5lM"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="ZoN-QG-XFh" secondAttribute="bottom" constant="2" id="Fb8-kf-tRF"/>
+                                                <constraint firstItem="SUF-5Y-4Wa" firstAttribute="top" secondItem="WCc-TS-wk9" secondAttribute="top" id="HEr-af-QOW"/>
+                                                <constraint firstItem="Mj8-vN-AsG" firstAttribute="leading" secondItem="WCc-TS-wk9" secondAttribute="leading" constant="8" id="LBB-iy-hfj"/>
+                                                <constraint firstItem="SUF-5Y-4Wa" firstAttribute="leading" secondItem="WCc-TS-wk9" secondAttribute="leading" constant="8" id="NRc-Ay-Ued"/>
+                                                <constraint firstItem="ZoN-QG-XFh" firstAttribute="leading" secondItem="Mj8-vN-AsG" secondAttribute="trailing" constant="8" id="OJP-Ik-1PH"/>
+                                                <constraint firstAttribute="bottom" secondItem="Mj8-vN-AsG" secondAttribute="bottom" constant="2" id="P0B-UG-nEa"/>
+                                                <constraint firstAttribute="trailing" secondItem="SUF-5Y-4Wa" secondAttribute="trailing" constant="8" id="jP3-5z-u63"/>
+                                                <constraint firstItem="ZoN-QG-XFh" firstAttribute="top" secondItem="SUF-5Y-4Wa" secondAttribute="bottom" constant="2" id="kdo-jH-chN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="avatarImageView" destination="Mj8-vN-AsG" id="O1h-Ez-B45"/>
+                                            <outlet property="heightOfDateLayoutConstraint" destination="hM9-fx-5lM" id="rKH-cM-Wyb"/>
+                                            <outlet property="messageImageView" destination="ZoN-QG-XFh" id="iSe-uv-EQz"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="20A-WY-cup" id="sTS-Va-GGE"/>
