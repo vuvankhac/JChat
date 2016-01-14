@@ -64,9 +64,9 @@
     self.senderID = @"me";
     self.senderDisplayName = @"Vũ Văn Khắc";
     
-    JMessages *textMe = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:@"Hello, how are you?" mediaData:nil];
+    JMessages *textMe = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName createAtDate:[NSDate date] textMessage:@"Hello, how are you?" mediaData:nil];
     
-    JMessages *textYou = [[JMessages alloc] initWithSenderID:@"khacvv" displayName:@"Jana Dev" textMessage:@"Hello, how are you?" mediaData:nil];
+    JMessages *textYou = [[JMessages alloc] initWithSenderID:@"khacvv" displayName:@"Jana Dev" createAtDate:[NSDate date] textMessage:@"Hello, how are you?" mediaData:nil];
     
     self.messagesArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 50; i++) {
@@ -180,6 +180,7 @@
             MeTableViewCell *cell = (MeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMe forIndexPath:indexPath];
             
             cell.contentMessage.text = [(JMessages *)self.messagesArray[indexPath.row] textMessage];
+            cell.dateLabel.text = [self convertDate:[(JMessages *)self.messagesArray[indexPath.row] date]];
             
             JMessages *messages;
             if (indexPath.row < 1) {
@@ -202,6 +203,7 @@
             MeImageTableViewCell *cell = (MeImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierMeImage forIndexPath:indexPath];
             
             cell.messageImageView.image = [UIImage imageWithData:[(JMessages *)self.messagesArray[indexPath.row] mediaData]];
+            cell.dateLabel.text = [self convertDate:[(JMessages *)self.messagesArray[indexPath.row] date]];
             
             JMessages *messages;
             if (indexPath.row < 1) {
@@ -226,6 +228,7 @@
             YouTableViewCell *cell = (YouTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYou forIndexPath:indexPath];
             
             cell.contentMessage.text = [(JMessages *)self.messagesArray[indexPath.row] textMessage];
+            cell.dateLabel.text = [self convertDate:[(JMessages *)self.messagesArray[indexPath.row] date]];
             
             JMessages *messages;
             if (indexPath.row < 1) {
@@ -255,6 +258,7 @@
             YouImageTableViewCell *cell = (YouImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifierYouImage forIndexPath:indexPath];
             
             cell.messageImageView.image = [UIImage imageWithData:[(JMessages *)self.messagesArray[indexPath.row] mediaData]];
+            cell.dateLabel.text = [self convertDate:[(JMessages *)self.messagesArray[indexPath.row] date]];
             
             JMessages *messages;
             if (indexPath.row < 1) {
@@ -339,7 +343,7 @@
 
 #pragma mark - Action Methods
 - (IBAction)sendAction:(id)sender {
-    JMessages *sendMessage = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:self.typeAMessageTextView.text mediaData:nil];
+    JMessages *sendMessage = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName createAtDate:[NSDate date] textMessage:self.typeAMessageTextView.text mediaData:nil];
     
     [self.messagesArray addObject:sendMessage];
     self.typeAMessageTextView.text = @"";
@@ -451,7 +455,7 @@
 - (void)didClickOnCellAtIndex:(NSInteger)cellIndex withImage:(UIImage *)image {
     
     NSData *dataImage = UIImagePNGRepresentation(image);
-    JMessages *sendMessage = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName textMessage:nil mediaData:dataImage];
+    JMessages *sendMessage = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName createAtDate:[NSDate date] textMessage:nil mediaData:dataImage];
     [self.messagesArray addObject:sendMessage];
     
     [UIView performWithoutAnimation:^{
@@ -459,6 +463,12 @@
     }];
     
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+}
+
+- (NSString *)convertDate:(NSDate *)date {
+    NSString *dateString = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle];
+    NSString *timeString = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
+    return [[dateString stringByAppendingString:@" "] stringByAppendingString:timeString];
 }
 
 - (NSMutableArray *)assets {

@@ -11,5 +11,6 @@
 @interface MeImageTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightOfDateLayoutConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *messageImageView;
 @end

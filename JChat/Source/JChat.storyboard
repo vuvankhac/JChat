@@ -277,6 +277,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="dateLabel" destination="NgQ-e6-NFY" id="b1U-Pr-N0G"/>
                                             <outlet property="heightOfDateLayoutConstraint" destination="m4z-zx-4FQ" id="5pp-ZJ-Byz"/>
                                             <outlet property="messageImageView" destination="Je2-YS-ZJe" id="sbQ-jd-Y3F"/>
                                         </connections>
@@ -340,6 +341,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avatarImageView" destination="Mj8-vN-AsG" id="O1h-Ez-B45"/>
+                                            <outlet property="dateLabel" destination="SUF-5Y-4Wa" id="GOk-Vr-cW4"/>
                                             <outlet property="heightOfDateLayoutConstraint" destination="hM9-fx-5lM" id="rKH-cM-Wyb"/>
                                             <outlet property="messageImageView" destination="ZoN-QG-XFh" id="iSe-uv-EQz"/>
                                         </connections>
