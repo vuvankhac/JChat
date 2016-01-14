@@ -41,7 +41,8 @@
 }
 
 - (void)delayMethod2 {
-    JMessages *push = [[JMessages alloc] initWithSenderID:@"ngoctrinhfake1" displayName:@"NgocTrinh" createAtDate:[NSDate date] textMessage:@"Thật đấy." mediaData:nil];
+    NSData *dataImage = UIImagePNGRepresentation([UIImage imageNamed:@"avatar.jpg"]);
+    JMessages *push = [[JMessages alloc] initWithSenderID:@"ngoctrinhfake1" displayName:@"NgocTrinh" createAtDate:[NSDate date] textMessage:nil mediaData:dataImage];
     
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:push forKey:@"messages"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SMS" object:self userInfo:userInfo];
