@@ -27,6 +27,7 @@
 @property (strong, nonatomic) UICollectionView *showImageCollectionView;
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
 @property (strong, nonatomic) UIButton *sendInCollectionView;
+@property (strong, nonatomic) InteractiveView *interactiveView;
 @property (weak, nonatomic) IBOutlet UIView *backgroundExtendView;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIView *inputView;
@@ -59,14 +60,14 @@
     
     //Interactive keyboard and tableview
     self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-    InteractiveView *inputView = [[InteractiveView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.accessoryLayoutConstraint.constant)];
-    inputView.userInteractionEnabled = NO;
-    self.typeAMessageTextView.inputAccessoryView = inputView;
+    self.interactiveView = [[InteractiveView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.accessoryLayoutConstraint.constant)];
+    self.interactiveView.userInteractionEnabled = NO;
+    self.typeAMessageTextView.inputAccessoryView = self.interactiveView;
     self.typeAMessageTextView.inputAccessoryView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     __weak typeof(self)weakSelf = self;
-    inputView.inputAcessoryViewFrameChangedBlock = ^(CGRect inputAccessoryViewFrame){
+    self.interactiveView.inputAcessoryViewFrameChangedBlock = ^(CGRect inputAccessoryViewFrame){
         CGFloat value = CGRectGetHeight(weakSelf.navigationController.view.frame) - CGRectGetMinY(inputAccessoryViewFrame) - CGRectGetHeight(weakSelf.typeAMessageTextView.inputAccessoryView.frame);
-        if (!self.imageOption.isSelected) {
+        if (!weakSelf.imageOption.isSelected) {
             weakSelf.keyboardControlLayoutConstraint.constant = MAX(0, value);
         }
         [weakSelf.view layoutIfNeeded];
@@ -304,6 +305,10 @@
         self.accessoryLayoutConstraint.constant = 5*16.707031 + 58.292969;
     }
     
+    //Update interactive frame
+    self.interactiveView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.accessoryLayoutConstraint.constant);
+    [self.typeAMessageTextView reloadInputViews];
+    
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -314,13 +319,15 @@
     JMessages *message = [[notification userInfo] valueForKey:@"messages"];
     [self.messagesArray addObject:message];
     
-    [UIView performWithoutAnimation:^{
-        [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    [self.chatTableView beginUpdates];
+    [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.chatTableView endUpdates];
     
     if (message.senderID == [[self.messagesArray objectAtIndex:self.messagesArray.count - 1] senderID]) {
         [self.chatTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
+    
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 #pragma mark - Action Methods
@@ -333,9 +340,9 @@
     
     [self accessoryViewDidChange];
     
-    [UIView performWithoutAnimation:^{
-        [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    [self.chatTableView beginUpdates];
+    [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.chatTableView endUpdates];
     
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
@@ -434,11 +441,11 @@
     JMessages *sendMessage = [[JMessages alloc] initWithSenderID:self.senderID displayName:self.senderDisplayName createAtDate:[NSDate date] textMessage:nil mediaData:dataImage];
     [self.messagesArray addObject:sendMessage];
     
-    [UIView performWithoutAnimation:^{
-        [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    [self.chatTableView beginUpdates];
+    [self.chatTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.chatTableView endUpdates];
     
-    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (NSString *)convertDate:(NSDate *)date {
