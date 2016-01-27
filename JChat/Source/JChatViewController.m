@@ -58,6 +58,14 @@
     self.chatTableView.rowHeight = UITableViewAutomaticDimension;
     self.chatTableView.estimatedRowHeight = 50;
     
+    //Config me
+    self.senderID = @"me";
+    self.senderDisplayName = @"Vũ Văn Khắc";
+    
+    [self loadImageFromiPhone];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     //Interactive keyboard and tableview
     self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     self.interactiveView = [[InteractiveView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.accessoryLayoutConstraint.constant)];
@@ -72,12 +80,7 @@
         }
         [weakSelf.view layoutIfNeeded];
     };
-    
-    //Config me
-    self.senderID = @"me";
-    self.senderDisplayName = @"Vũ Văn Khắc";
-    
-    [self loadImageFromiPhone];
+    [self.typeAMessageTextView reloadInputViews];
 }
 
 - (void)loadImageFromiPhone {
