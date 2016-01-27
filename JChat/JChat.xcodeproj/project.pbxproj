@@ -13,6 +13,7 @@
 		3D01C5B81C4634E100E6C174 /* send-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D01C5B51C4634E100E6C174 /* send-button.png */; };
 		3D01C5B91C4634E100E6C174 /* send-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D01C5B61C4634E100E6C174 /* send-button@2x.png */; };
 		3D01C5BA1C4634E100E6C174 /* send-button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D01C5B71C4634E100E6C174 /* send-button@3x.png */; };
+		3D73B4951C58ADDE007B070D /* InteractiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73B4941C58ADDE007B070D /* InteractiveView.m */; };
 		3DF30B841C434DDE00EAE12D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B831C434DDE00EAE12D /* main.m */; };
 		3DF30B871C434DDE00EAE12D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B861C434DDE00EAE12D /* AppDelegate.m */; };
 		3DF30B8A1C434DDE00EAE12D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF30B891C434DDE00EAE12D /* ViewController.m */; };
@@ -46,6 +47,8 @@
 		3D01C5B51C4634E100E6C174 /* send-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-button.png"; sourceTree = "<group>"; };
 		3D01C5B61C4634E100E6C174 /* send-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-button@2x.png"; sourceTree = "<group>"; };
 		3D01C5B71C4634E100E6C174 /* send-button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-button@3x.png"; sourceTree = "<group>"; };
+		3D73B4931C58ADDE007B070D /* InteractiveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveView.h; sourceTree = "<group>"; };
+		3D73B4941C58ADDE007B070D /* InteractiveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveView.m; sourceTree = "<group>"; };
 		3DF30B7F1C434DDE00EAE12D /* JChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF30B831C434DDE00EAE12D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3DF30B851C434DDE00EAE12D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -95,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D73B4921C58ADB3007B070D /* InteractiveView */ = {
+			isa = PBXGroup;
+			children = (
+				3D73B4931C58ADDE007B070D /* InteractiveView.h */,
+				3D73B4941C58ADDE007B070D /* InteractiveView.m */,
+			);
+			path = InteractiveView;
+			sourceTree = "<group>";
+		};
 		3DF30B761C434DDE00EAE12D = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				3DFCCEAA1C473B26001E2034 /* AccessoryView */,
+				3D73B4921C58ADB3007B070D /* InteractiveView */,
 				3DF30BB91C43A6CD00EAE12D /* Items */,
 				3DF30BB21C438E3C00EAE12D /* MessageUI */,
 				3DF30BAE1C436DE100EAE12D /* JMessages */,
@@ -314,6 +327,7 @@
 				3DF30B901C434DDE00EAE12D /* JChat.xcdatamodeld in Sources */,
 				3DF30BB51C438E5300EAE12D /* MeTableViewCell.m in Sources */,
 				3DF30BAB1C43598800EAE12D /* UITextView+Placeholder.m in Sources */,
+				3D73B4951C58ADDE007B070D /* InteractiveView.m in Sources */,
 				3DF30BA51C43508E00EAE12D /* JChatViewController.m in Sources */,
 				3DF30BB11C436E0500EAE12D /* JMessages.m in Sources */,
 				3DF30B8A1C434DDE00EAE12D /* ViewController.m in Sources */,

@@ -15,6 +15,7 @@
 #import "YouImageTableViewCell.h"
 #import "SendImageCollectionViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "InteractiveView.h"
 
 @interface JChatViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, CellDelegate>
 
@@ -49,11 +50,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMessage:) name:@"SMS" object:nil];
     
-    //Tracking tap
-    UITapGestureRecognizer *tapInScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapInScreen)];
-    [self.chatTableView addGestureRecognizer:tapInScreen];
-    tapInScreen.cancelsTouchesInView = YES;
-    
     self.typeAMessageTextView.placeholder = @"Type a message";
     self.typeAMessageTextView.showsVerticalScrollIndicator = NO;
     self.typeAMessageTextView.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -61,7 +57,22 @@
     self.chatTableView.rowHeight = UITableViewAutomaticDimension;
     self.chatTableView.estimatedRowHeight = 50;
     
-    //Config me:
+    //Interactive keyboard and tableview
+    self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    InteractiveView *inputView = [[InteractiveView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.accessoryLayoutConstraint.constant)];
+    inputView.userInteractionEnabled = NO;
+    self.typeAMessageTextView.inputAccessoryView = inputView;
+    self.typeAMessageTextView.inputAccessoryView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    __weak typeof(self)weakSelf = self;
+    inputView.inputAcessoryViewFrameChangedBlock = ^(CGRect inputAccessoryViewFrame){
+        CGFloat value = CGRectGetHeight(weakSelf.navigationController.view.frame) - CGRectGetMinY(inputAccessoryViewFrame) - CGRectGetHeight(weakSelf.typeAMessageTextView.inputAccessoryView.frame);
+        if (!self.imageOption.isSelected) {
+            weakSelf.keyboardControlLayoutConstraint.constant = MAX(0, value);
+        }
+        [weakSelf.view layoutIfNeeded];
+    };
+    
+    //Config me
     self.senderID = @"me";
     self.senderDisplayName = @"Vũ Văn Khắc";
     
@@ -79,6 +90,7 @@
     [self.showImageCollectionView registerNib:nib forCellWithReuseIdentifier:@"cellIdentifier"];
     self.showImageCollectionView.backgroundColor = [UIColor clearColor];
     [self.backgroundExtendView addSubview:self.showImageCollectionView];
+    self.showImageCollectionView.hidden = YES;
     
     ALAssetsGroupEnumerationResultsBlock assetsEnumerationBlock = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
         if (result) {
@@ -107,50 +119,15 @@
 
 #pragma mark - Notification
 - (void)keyboardWillShow:(NSNotification *)notification {
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    if (!self.textOption.isSelected) {
-        self.keyboardControlLayoutConstraint.constant = keyboardSize.height;
-    }
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view layoutIfNeeded];
-    }];
+    
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    if (!self.textOption.isSelected) {
-        self.keyboardControlLayoutConstraint.constant = 0;
-    }
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view layoutIfNeeded];
-    }];
+    
 }
 
 - (void)keyboardWillChangeFrame:(NSNotification *)notification {
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
-    if (self.typeAMessageTextView.isEditable) {
-        self.keyboardControlLayoutConstraint.constant = keyboardSize.height;
-    }
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view layoutIfNeeded];
-    }];
-}
-
-#pragma mark - Tracking tap
-- (void)tapInScreen {
-    [self.typeAMessageTextView resignFirstResponder];
-    
-    [self.textOption setSelected:NO];
-    [self.imageOption setSelected:NO];
-    
-    self.typeAMessageTextView.hidden = NO;
-    self.sendButton.hidden = NO;
-    [self accessoryViewDidChange];
-    self.accessoryLayoutConstraint.constant = 75;
-    self.keyboardControlLayoutConstraint.constant = 0;
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view layoutIfNeeded];
-    }];
 }
 
 #pragma mark - TabbleViewDelegate
@@ -364,6 +341,8 @@
 }
 
 - (IBAction)textOptionAction:(id)sender {
+    self.showImageCollectionView.hidden = YES;
+    
     if (self.imageOption.isSelected) {
         [UIView performWithoutAnimation:^{
             [self.typeAMessageTextView becomeFirstResponder];
@@ -385,15 +364,17 @@
 }
 
 - (IBAction)imageOptionAction:(id)sender {
-    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    self.showImageCollectionView.hidden = NO;
     
     [self.textOption setSelected:NO];
     [self.imageOption setSelected:YES];
     
     self.typeAMessageTextView.hidden = YES;
+    [self.typeAMessageTextView resignFirstResponder];
     self.sendButton.hidden = YES;
-    self.accessoryLayoutConstraint.constant = 40;
+    
     self.keyboardControlLayoutConstraint.constant = 216;
+    self.accessoryLayoutConstraint.constant = 40;
     [UIView animateWithDuration:0.2 animations:^{
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
