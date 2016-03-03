@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--Chat View Controller-->
@@ -366,6 +366,20 @@
                                     <constraint firstAttribute="height" constant="216" id="D6P-mh-FsG"/>
                                 </constraints>
                             </view>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C04-FM-VmF">
+                                <rect key="frame" x="40" y="463" width="240" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="M4v-2u-4Ve"/>
+                                    <constraint firstAttribute="height" constant="30" id="s3v-TS-LDN"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -376,9 +390,11 @@
                             <constraint firstAttribute="trailing" secondItem="vwB-5r-TqJ" secondAttribute="trailing" id="SbF-CS-Sk2"/>
                             <constraint firstItem="aDH-q1-dfb" firstAttribute="top" secondItem="1SK-Jf-tco" secondAttribute="bottom" id="Uzn-zG-d5E"/>
                             <constraint firstItem="1SK-Jf-tco" firstAttribute="top" secondItem="vwB-5r-TqJ" secondAttribute="bottom" id="WUn-iX-D4v"/>
+                            <constraint firstItem="C04-FM-VmF" firstAttribute="centerX" secondItem="2YD-fV-Xz5" secondAttribute="centerX" id="Wno-MA-Lf4"/>
                             <constraint firstItem="vwB-5r-TqJ" firstAttribute="leading" secondItem="2YD-fV-Xz5" secondAttribute="leading" id="Zqs-56-wYs"/>
                             <constraint firstItem="GLo-SZ-bb8" firstAttribute="width" secondItem="1SK-Jf-tco" secondAttribute="width" id="hmX-Lz-Jq5"/>
                             <constraint firstItem="GLo-SZ-bb8" firstAttribute="bottom" secondItem="1SK-Jf-tco" secondAttribute="bottom" constant="216" id="nyL-jj-zUx"/>
+                            <constraint firstItem="1SK-Jf-tco" firstAttribute="top" secondItem="C04-FM-VmF" secondAttribute="bottom" id="rU5-xb-VyK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="67c-yi-2Fn"/>
@@ -389,6 +405,7 @@
                         <outlet property="imageOption" destination="S41-Ui-kTO" id="4eH-2y-baW"/>
                         <outlet property="inputView" destination="1SK-Jf-tco" id="R8c-dr-MxA"/>
                         <outlet property="keyboardControlLayoutConstraint" destination="Uzn-zG-d5E" id="WNQ-wm-3DN"/>
+                        <outlet property="notifMessageView" destination="C04-FM-VmF" id="Kbc-FJ-J7x"/>
                         <outlet property="sendButton" destination="Q6I-EO-Sr2" id="2md-cc-pkM"/>
                         <outlet property="textOption" destination="BJr-gl-Vg3" id="SXi-S6-hn5"/>
                         <outlet property="typeAMessageTextView" destination="8kc-uJ-CxU" id="5br-m5-DkP"/>

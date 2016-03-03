@@ -28,6 +28,8 @@
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
 @property (strong, nonatomic) UIButton *sendInCollectionView;
 @property (strong, nonatomic) InteractiveView *interactiveView;
+@property (nonatomic, assign) BOOL isBottom;
+@property (weak, nonatomic) IBOutlet UIView *notifMessageView;
 @property (weak, nonatomic) IBOutlet UIView *backgroundExtendView;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIView *inputView;
@@ -61,6 +63,8 @@
     //Config me
     self.senderID = @"me";
     self.senderDisplayName = @"Vũ Văn Khắc";
+    
+    self.notifMessageView.hidden = YES;
     
     [self loadImageFromiPhone];
 }
@@ -330,7 +334,13 @@
         [self.chatTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
     
-    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    if(self.isBottom) {
+        [self.notifMessageView setHidden:YES];
+        
+        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    } else {
+        [self.notifMessageView setHidden:NO];
+    }
 }
 
 #pragma mark - Action Methods
@@ -449,6 +459,18 @@
     [self.chatTableView endUpdates];
     
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+#pragma mark - ScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetY = self.chatTableView.contentOffset.y;
+    CGFloat contentHeight = self.chatTableView.contentSize.height;
+    if (offsetY > contentHeight - self.chatTableView.frame.size.height) {
+        self.isBottom = YES;
+        [self.notifMessageView setHidden:YES];
+    } else {
+        self.isBottom = NO;
+    }
 }
 
 - (NSString *)convertDate:(NSDate *)date {

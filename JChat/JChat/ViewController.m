@@ -13,6 +13,7 @@
 @interface ViewController ()
 
 @property (strong, nonatomic) NSMutableArray *messagesArray;
+@property (strong, nonatomic) NSTimer *sendMessageTimer;
 @end
 
 @implementation ViewController
@@ -25,12 +26,7 @@
     
     self.messagesArray = [[NSMutableArray alloc] initWithObjects:textYou, textMe, nil];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self delayMethod1];
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 15 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self delayMethod2];
-    });
+    self.sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(sendMessageAction) userInfo:nil repeats:YES];
 }
 
 - (void)delayMethod1 {
@@ -46,6 +42,10 @@
     
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:push forKey:@"messages"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SMS" object:self userInfo:userInfo];
+}
+
+- (void)sendMessageAction {
+    [self delayMethod1];
 }
 
 - (IBAction)goChatAction:(id)sender {
