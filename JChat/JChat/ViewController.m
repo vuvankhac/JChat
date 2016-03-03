@@ -30,7 +30,7 @@
 }
 
 - (void)delayMethod1 {
-    JMessages *push = [[JMessages alloc] initWithSenderID:@"ngoctrinhfake1" displayName:@"NgocTrinh" createAtDate:[NSDate date] textMessage:@"Em thích anh" mediaData:nil];
+    JMessages *push = [[JMessages alloc] initWithSenderID:@"ngoctrinhfake1" displayName:@"NgocTrinh" createAtDate:[NSDate date] textMessage:@"Em thích anh\nThật đấy" mediaData:nil];
     
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:push forKey:@"messages"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SMS" object:self userInfo:userInfo];

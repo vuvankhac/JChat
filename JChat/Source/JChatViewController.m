@@ -28,7 +28,9 @@
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
 @property (strong, nonatomic) UIButton *sendInCollectionView;
 @property (strong, nonatomic) InteractiveView *interactiveView;
-@property (nonatomic, assign) BOOL isBottom;
+@property (assign, nonatomic) BOOL isBottom;
+@property (assign, nonatomic) CGFloat lastContentOffset;
+@property (strong, nonatomic) UILabel *messageInNotifyLabel;
 @property (weak, nonatomic) IBOutlet UIView *notifMessageView;
 @property (weak, nonatomic) IBOutlet UIView *backgroundExtendView;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
@@ -64,7 +66,19 @@
     self.senderID = @"me";
     self.senderDisplayName = @"Vũ Văn Khắc";
     
+    self.lastContentOffset = 0.0;
     self.notifMessageView.hidden = YES;
+    if (self.chatTableView.bounds.size.height > self.chatTableView.contentSize.height) {
+        self.isBottom = YES;
+    }
+    self.messageInNotifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, self.notifMessageView.bounds.size.width - 20, self.notifMessageView.bounds.size.height - 10)];
+    self.messageInNotifyLabel.textColor = [UIColor whiteColor];
+    self.messageInNotifyLabel.textAlignment = NSTextAlignmentCenter;
+    self.messageInNotifyLabel.font = [UIFont systemFontOfSize:15];
+    [self.notifMessageView addSubview:self.messageInNotifyLabel];
+    UIButton *readMessage = [[UIButton alloc] initWithFrame:self.notifMessageView.bounds];
+    [readMessage addTarget:self action:@selector(readMessageAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.notifMessageView addSubview:readMessage];
     
     [self loadImageFromiPhone];
 }
@@ -334,11 +348,11 @@
         [self.chatTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messagesArray.count - 2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
     
-    if(self.isBottom) {
+    if (self.isBottom) {
         [self.notifMessageView setHidden:YES];
-        
         [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     } else {
+        self.messageInNotifyLabel.text = message.textMessage;
         [self.notifMessageView setHidden:NO];
     }
 }
@@ -461,16 +475,24 @@
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
+#pragma mark - ReadMessageAction
+- (void)readMessageAction {
+    self.isBottom = YES;
+    [self.notifMessageView setHidden:YES];
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messagesArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
 #pragma mark - ScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat offsetY = self.chatTableView.contentOffset.y;
-    CGFloat contentHeight = self.chatTableView.contentSize.height;
-    if (offsetY > contentHeight - self.chatTableView.frame.size.height) {
-        self.isBottom = YES;
-        [self.notifMessageView setHidden:YES];
-    } else {
-        self.isBottom = NO;
+    if (self.lastContentOffset > scrollView.contentOffset.y) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            self.isBottom = YES;
+            [self.notifMessageView setHidden:YES];
+        } else {
+            self.isBottom = NO;
+        }
     }
+    self.lastContentOffset = scrollView.contentOffset.y;
 }
 
 - (NSString *)convertDate:(NSDate *)date {
